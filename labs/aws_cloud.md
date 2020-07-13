@@ -9,20 +9,20 @@
 
 3. We are going to use vscode to write our code and a Linux Node to run our InSpec tests on - we will setup vscode to be our one stop environment for this:
 
-i. In the Powershell window type
+i. In the Powershell window type  
 ```bash
 code .
 ```
 
-ii. While in vscode press the F1 function key and start typing
-```Remote-SSH: Connect to Host...``` select it and type
-`ec2-user@<ask your instructor for the ip address>` 
-select it and then select `Linux` (and `continue` if this is the first time you have connected).
+ii. While in vscode press the F1 function key and start typing  
+```Remote-SSH: Connect to Host...``` select it and type  
+`ec2-user@<ask your instructor for the ip address>`  
+select it and then select `Linux` (and `continue` if this is the first time you have connected).  
 
 iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
-iv. From the vscode menu click `Terminal` and then `New Terminal`.
-Your setup should now look similar to this:
+iv. From the vscode menu click `Terminal` and then `New Terminal`.  
+Your setup should now look similar to this:  
 ![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
 
 4. Login to Chef Automate via the Chrome Browser, the browser should be open at the correct URL, if not ask the instructor for the URL.
