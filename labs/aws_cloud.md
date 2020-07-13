@@ -9,18 +9,21 @@
 
 3. We are going to use vscode to write our code and a Linux Node to run our InSpec tests on - we will setup vscode to be our one stop environment for this:
 
-   i. In the Powershell window type<
-   `code .`
+i. In the Powershell window type
+```bash
+code .
+```
 
-   ii. While in vscode press the F1 function key and start typing
-   `Remote-SSH: Connect to Host...`, select it and type
-   `ec2-user@<ask your instructor for the ip address>`, select it and then select `Linux` (and `continue` if this is the first time you have connected).
+ii. While in vscode press the F1 function key and start typing
+```Remote-SSH: Connect to Host...``` select it and type
+`ec2-user@<ask your instructor for the ip address>` 
+select it and then select `Linux` (and `continue` if this is the first time you have connected).
 
-   iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
+iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
-   iv. From the vscode menu click `Terminal` and then `New Terminal`.
-   Your setup should now look similar to this:
-   ![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
+iv. From the vscode menu click `Terminal` and then `New Terminal`.
+Your setup should now look similar to this:
+![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
 
 4. Login to Chef Automate via the Chrome Browser, the browser should be open at the correct URL, if not ask the instructor for the URL.
 ```
@@ -240,18 +243,18 @@ pry(#<Inspec::Rule>)> describe aws_iam_role(role)
 
 5. Press `q` to exit and `exit-program` to exit pry.
 
-## 4. Center For Internet (CIS) Profile execution
+## 4. Center For Internet Security (CIS) Profile execution
 The Centre for Internet Security produces a CIS AWS Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, it is fully accreditied by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the AWS cloud. 
 
 1. Login to Chef Automate via the terminal: 
-`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>` 
+`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com` 
 For example: 
-`inspec compliance login --insecure --user=workstation-1 --token m6E8BQ5iCWLMBFUpIPRlRhrqR6k= afd-a2.chefdemo.cloud`
+`inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`
 ```
-Stored configuration for Chef Automate2: https://afd-a2.chefdemo.cloud/api/v0' with user: 'workstation-1'
+Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'
 ```
 
-2. Open the Chrome Browser and go to the `Compliance` menu, then the `Profiles` tab on the left, see that the `CIS Amazon Web Services Foundation Benchmark Level 1` profile is available to your `workstation-x` user.
+2. Open the Chrome Browser and go to the `Compliance` menu tab, then the `Profiles` tab on the left, see that the `CIS Amazon Web Services Foundation Benchmark Level 1` profile is available to your `workstation-x` user.
 ![Chef Automate Profile](/labs/images/aws-foundation.png)
 
 3. Next lets execute that profile against the AWS API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run, some will emit a warning as the IAM role I am using does not have all of the required permissions, you can ignore these warnings: 
