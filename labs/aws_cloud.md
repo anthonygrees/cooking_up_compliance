@@ -3,29 +3,31 @@
 [Back to the Lab Index](../README.md)
 
 ### 1. Configure your workstation
-1. Create a remote desktop connection to your Windows workstation, login using `chef` as the username, ask your instructor for the password.
+1. Create a remote desktop connection to your Windows workstation  
+  - login using `chef` as the username
+  - use the password provided by your Chef Instructor
 
 2. Open the remote desktop connection and wait for the background to change to `DevOps Better Together`, the Chrome browser and a Powershell window to open.
 
-3. We are going to use vscode to write our code and a Linux Node to run our InSpec tests on - we will setup vscode to be our one stop environment for this:
+3. We are going to use VS Code to write our code and a Linux Node to run our InSpec tests on - we will setup VS Code to be our one stop environment for this:
 
-i. In the Powershell window type  
-```bash
-code .
-```
+    i. In the Powershell window type  
+    ```bash
+    code .
+    ```
 
-ii. While in vscode press the F1 function key and start typing  
-```Remote-SSH: Connect to Host...``` select it and type  
-`ec2-user@<ask your instructor for the ip address>`  
-select it and then select `Linux` (and `continue` if this is the first time you have connected).  
+    ii. While in vscode press the F1 function key and start typing  
+    ```Remote-SSH: Connect to Host...``` select it and type  
+    `ec2-user@<ask your instructor for the ip address>`  
+    select it and then select `Linux` (and `continue` if this is the first time you have connected).  
 
-iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
+    iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
-iv. From the vscode menu click `Terminal` and then `New Terminal`.  
-Your setup should now look similar to this:  
-![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
+    iv. From the vscode menu click `Terminal` and then `New Terminal`.  
+    Your setup should now look similar to this:  
+    ![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
 
-4. Login to Chef Automate via the Chrome Browser, the browser should be open at the correct URL, if not ask the instructor for the URL.
+4. Login to Chef Automate via the Chrome Browser, the browser should be open at the correct URL, if not, the URL is https://anthony-a2.chef-demo.com
 ```
 Username = workstation-x
 Password = workstation!

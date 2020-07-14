@@ -1,20 +1,21 @@
 ![Chef Events](/labs/images/chef_events.png)
-# Cooking Up compliance
-Chef Events - Secure your Cloud with Chef Compliance for AWS, Azure and GCP
+# Cooking Up Compliance - Workshop
+  
+**Chef Events - Secure your Cloud with Chef Compliance for AWS, Azure and GCP**
 
 Come join us at the Secure your Cloud with Chef Compliance! This uniquely practical workshop is a great opportunity to learn the best ways to automate your security compliance.
 
 We are running 3 workshops, each focused on a different cloud provider. During each virtual workshop, Chef experts will teach practitioners how to:
 
-Remote scan many of your environments to CIS and STIG standards
-Detect and correct security issues across your infrastructure
-Automate security compliance to eliminate risk and deliver software that is secure and compliant by design
+- Remote scan many of your environments to CIS and STIG standards  
+- Detect and correct security issues across your infrastructure  
+- Automate security compliance to eliminate risk and deliver software that is secure and compliant by design  
 
-To run the labs you will require:
+This is a hands on workshop and you will require:  
  - Internet connectivity
- - [Microsoft Remote Desktop](https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-clients) to access the Windows Workstation.
-
-The following labs are available:
+ - [Microsoft Remote Desktop](https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-clients) installed on your laptop to access the Chef Windows Workstation  
+  
+The following is the lab material:
 | Item | Course  | 
 | :---: |:-------------| 
 | 1. | [Introduction to InSpec](labs/intro.md) |
@@ -22,11 +23,11 @@ The following labs are available:
 | 2. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
 | 3. |  [Scan Azure Cloud with InSpec](labs/azure_cloud.md) |
 | 4. | [Scan GCP Cloud with InSpec](labs/gcp_cloud.md) |
-
-
-
+  
+  
+  
 ## License and Author
-
+  
 * Author:: Anthony Rees <anthony@chef.io>
 
 Licensed under the Apache License, Version 2.0 (the "License");
