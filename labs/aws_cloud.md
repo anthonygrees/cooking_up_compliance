@@ -37,17 +37,17 @@ Replace x with your workstation number given to you by the instructor.
 ### 2. Create Your First InSpec Profile
 
 1. Check to make sure that InSpec can talk to AWS, in the vscode terminal type:(if prompted accept the Chef License).  
-
-`inspec detect -t aws://`
+    Run the command:  
+    `inspec detect -t aws://`
 
 2. Create an InSpec profile to scan aws, in the terminal type:  
-  
-`inspec init profile aws --platform=aws`  
-`cd aws`  
-Observe the files and directories created in the terminal or the vscode file browser on the left.
+    Run the commands:  
+    `inspec init profile aws --platform=aws`  
+    `cd aws`  
+    Observe the files and directories created in the terminal or the vscode file browser on the left.
 
 3. Scan AWS with your newly created profile:  
-`inspec exec . -t aws://`
+    `inspec exec . -t aws://`
 
 ### 3. Send Your InSpec Results To Chef Automate
 
