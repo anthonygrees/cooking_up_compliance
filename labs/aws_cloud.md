@@ -2,7 +2,7 @@
 
 [Back to the Lab Index](../README.md)
 
-### 1. Configure your workstation
+### 1. Configure Your Workstation
 1. Create a remote desktop connection to your Windows workstation  
   - login using `chef` as the username
   - use the password provided by your Chef Instructor
@@ -34,20 +34,22 @@ Password = workstation!
 ```
 Replace x with your workstation number given to you by the instructor.
 
-### 2. Create Your first InSpec Profile
+### 2. Create Your First InSpec Profile
 
-1. Check to make sure that InSpec can talk to AWS, in the vscode terminal type:(if prompted accept the Chef License).
+1. Check to make sure that InSpec can talk to AWS, in the vscode terminal type:(if prompted accept the Chef License).  
+
 `inspec detect -t aws://`
 
-2. Create an InSpec profile to scan aws, in the terminal type:
-`inspec init profile aws --platform=aws`
-`cd aws`
+2. Create an InSpec profile to scan aws, in the terminal type:  
+  
+`inspec init profile aws --platform=aws`  
+`cd aws`  
 Observe the files and directories created in the terminal or the vscode file browser on the left.
 
-3. Scan AWS with your newly created profile:
+3. Scan AWS with your newly created profile:  
 `inspec exec . -t aws://`
 
-### 3. Send your InSpec results to Chef Automate
+### 3. Send Your InSpec Results To Chef Automate
 
 1. You will need to create a UUID for your AWS scan, run `uuidgen` in your terminal.
 
