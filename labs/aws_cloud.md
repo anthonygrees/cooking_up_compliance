@@ -1,3 +1,4 @@
+![AWS Chef](/labs/images/aws.png)
 # Scanning AWS Cloud with InSpec
 
 [Back to the Lab Index](../README.md)
