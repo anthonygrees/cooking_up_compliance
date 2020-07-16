@@ -1,7 +1,7 @@
 ![AWS Chef](/labs/images/aws.png)
 # Scanning AWS Cloud with InSpec
 
-[Back to the Lab Index](../README.md)
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
 
 ### 1. Configure Your Workstation
 1. Create a remote desktop connection to your Windows workstation  
@@ -19,9 +19,12 @@
     This will open VS Code for you.
 
     ii. While in VS Code press the F1 function key and start typing  
-    ```Remote-SSH: Connect to Host...``` select it and type  
+    ```Remote-SSH: Connect to Host...``` select it  
+    ![Lab Setup Image](/labs/images/vscode-setup-remote.png "Lab Setup")
+    Now type  
     `ec2-user@<ip address as provided by your instructor>`  
-    select it and then select `Linux` (and `continue` if this is the first time you have connected).  
+    select it and then select `Linux`   
+    And `continue` if this is the first time you have connected).  
 
     iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
@@ -35,34 +38,110 @@ Username = workstation-x
 Password = workstation!
 ```
 Replace x with your workstation number given to you by the instructor.
+![Lab Setup Image](/labs/images/automate.png "Automate")
 
 ### 2. Create Your First InSpec Profile
 
-1. Check to make sure that InSpec can talk to AWS, in the VS Code terminal type:(if prompted accept the Chef License).  
+1. Check to make sure that InSpec can talk to AWS, in the VS Code terminal type:(if prompted accept the Chef License). To open the `terminal`, on the menu, choose `View` and `Terminal`.    
     Run the command:  
     `inspec detect -t aws://`
+      
+    You will see an output as follows:  
+    ```bash
+    [ec2-user@ip-172-31-54-168 inspec-labs]$ inspec detec -t aws://
+    +---------------------------------------------+
+                Chef License Acceptance
+
+    Before you can continue, 1 product license
+    must be accepted. View the license at
+    https://www.chef.io/end-user-license-agreement/
+
+    License that need accepting:
+      * Chef InSpec
+
+    Do you accept the 1 product license (yes/no)?
+
+    > yes
+
+    Persisting 1 product license...
+    ✔ 1 product license persisted.
+
+    +---------------------------------------------+
+
+    ────────────────────────────── Platform Details ────────────────────────────── 
+
+    Name:      aws
+    Families:  cloud, api
+    Release:   train-aws: v0.1.17, aws-sdk-core: v3.102.1
+    ```
 
 2. Create an InSpec profile to scan aws, in the terminal type:  
     Run the commands:  
     `inspec init profile aws --platform=aws`  
     `cd aws`  
-    Observe the files and directories created in the terminal or the VS Code file browser on the left.
+    Observe the files and directories created in the terminal or the VS Code file browser on the left.  
+
+    You will see output as follows:
+    ```bash
+    [ec2-user@ip-172-31-54-168 inspec-labs]$ inspec init profile aws --platform=aws
+
+    ─────────────────────────── InSpec Code Generator ─────────────────────────── 
+
+    Creating new profile at /home/ec2-user/inspec-labs/aws
+    • Creating file README.md
+    • Creating file attributes.yml
+    • Creating directory controls
+    • Creating file controls/example.rb
+    • Creating file inspec.yml
+
+    ```
 
 3. Scan AWS with your newly created profile:  
     `inspec exec . -t aws://`
+      
+  You will see output as follows:  
+  ```bash
+        ✔  VPC vpc-0659aa9089c3a407b in us-west-2 is expected to exist
+        ✔  VPC vpc-0659aa9089c3a407b in us-west-2 is expected to be available
+        ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to exist
+        ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to be available
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to exist
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to be available
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to exist
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to be available
+
+
+    Profile: Amazon Web Services  Resource Pack (inspec-aws)
+    Version: 1.26.1
+    Target:  aws://us-west-2
+
+        No tests executed.
+
+    Profile Summary: 1 successful control, 1 control failure, 1 control skipped
+    Test Summary: 293 successful, 1 failure, 1 skipped
+  ```
 
 ### 3. Send Your InSpec Results To Chef Automate
 
-1. You will need to create a UUID for your AWS scan, run `uuidgen` in your terminal.  
+1. You will need to create a UUID for your AWS scan, run `uuidgen` in your terminal.    
+     
+  You will see output as follows:
+  ```bash
+    [ec2-user@ip-172-31-54-168 aws]$ uuidgen
+    c6754ceb-b9a8-4917-a797-c0d0589246d6
+      
+```
 
-2. Next you need to create a `reporter.json` file like this in the `aws` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by right clicking on the `aws` directory or in the terminal with `touch reporter.json`  
+2. Next you need to create a `reporter.json` file like this in the `aws` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by either:  
+   - right clicking on the `aws` directory or   
+   - in the terminal type `touch reporter.json`  
   
 ``` json
 {
   "reporter": {
     "automate" : {
       "stdout" : false,
-      "url" : "https://<Chef Automate Hostname>/data-collector/v0/",
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
       "token" : "<Chef Automate Token>",
       "insecure" : true,
       "node_name" : "YourName-aws-api",
@@ -78,8 +157,30 @@ Replace x with your workstation number given to you by the instructor.
   
 3. Lets run the scan again but now report the results to Chef Automate  
 `inspec exec . -t aws:// --config=reporter.json`  
+  
+  You will see output as follows:  
+  ```bash
+        ✔  VPC vpc-0659aa9089c3a407b in us-west-2 is expected to exist
+        ✔  VPC vpc-0659aa9089c3a407b in us-west-2 is expected to be available
+        ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to exist
+        ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to be available
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to exist
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to be available
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to exist
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to be available
 
-4. The Chrome Browser should already be open, if not open it and ask your instructor for the Chef Automate URL to use.  
+
+    Profile: Amazon Web Services  Resource Pack (inspec-aws)
+    Version: 1.26.1
+    Target:  aws://us-west-2
+
+        No tests executed.
+
+    Profile Summary: 1 successful control, 1 control failure, 1 control skipped
+    Test Summary: 293 successful, 1 failure, 1 skipped
+  ```
+
+4. The Chrome Browser should already be open, if not open it and navigate to the Chef Automate URL - https://anthony-a2.chef-demo.com/.  
    
 In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our AWS-API scan is our node.  
 ![Chef Automate Compliance](/labs/images/aws-compliance.png "Chef Automate Compliance") 
@@ -108,6 +209,25 @@ The Source - the actual InSpec code that ran to perform the check:
 
 3. Lets run InSpec again this time specifying the `attributes.yml` file as an input file:   
 `inspec exec . -t aws:// --config=reporter.json --input-file=attributes.yml` 
+  
+  This time you will have NO skipped controls:  
+  ```bash
+        ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to be available
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to exist
+        ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to be available
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to exist
+        ✔  VPC vpc-0665c28ac652e776b in us-west-2 is expected to be available
+
+
+    Profile: Amazon Web Services  Resource Pack (inspec-aws)
+    Version: 1.26.1
+    Target:  aws://us-west-2
+
+        No tests executed.
+
+    Profile Summary: 2 successful controls, 1 control failure, 0 controls skipped
+    Test Summary: 294 successful, 1 failure, 0 skipped
+  ```
 
 4. Take a look at the results in Chef Automate, you should now see all three controls passing.  
 ![Control Results](/labs/images/aws-controls-passing.png) 
@@ -272,4 +392,4 @@ Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0'
 ![CIS AWS API Scan Results](/labs/images/aws-cis-run.png)
   
   
-[Back to the Lab Index](../README.md)
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)

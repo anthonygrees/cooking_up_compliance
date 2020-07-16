@@ -1,4 +1,7 @@
 # Scanning GCP Cloud with InSpec
+
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+
 ## 1. Configure your workstation
 1. Create a remote desktop connection to your Windows workstation, login using `chef` as the username, ask your instructor for the password.<br />
 2. Open the remote desktop connection and wait for the background to change to `DevOps Better Together`, the Chrome browser and a Powershell window to open.
@@ -242,4 +245,4 @@ Look at the scan results in the Chef Automate browser:<br />
 ![CIS GCP API Scan Results](/labs/images/docker-cis-run.png)
 
 
-[Back to the Lab Index](../README.md)
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)

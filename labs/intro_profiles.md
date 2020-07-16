@@ -1,6 +1,6 @@
 # Introduction to InSpec Profiles
 
-[Back to the Lab Index](../README.md)
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
 
 ### Profile Structure
 
@@ -148,4 +148,4 @@ end
 ```
   
 
-[Back to the Lab Index](../README.md)
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
