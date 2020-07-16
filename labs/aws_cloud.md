@@ -210,7 +210,7 @@ The Source - the actual InSpec code that ran to perform the check:
 3. Lets run InSpec again this time specifying the `attributes.yml` file as an input file:   
 `inspec exec . -t aws:// --config=reporter.json --input-file=attributes.yml` 
   
-  This time you will have NO skipped controls:  
+  This time you will have NO skipped controls:   
   ```bash
         ✔  VPC vpc-06ba5e461e3f1848a in us-west-2 is expected to be available
         ✔  VPC vpc-09957a36c3acb19f6 in us-west-2 is expected to exist
@@ -385,11 +385,11 @@ Chef has implemented that benchmark uisng InSpec, it is fully accreditied by CIS
 1. Login to Chef Automate via the terminal:  
 `inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com`   
    
-For example:  
-`inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`  
-```
-Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'  
-```
+  For example:  
+  `inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`  
+  ```
+  Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'  
+  ```
   
 2. Open the Chrome Browser and in Chef Automate, go to the `Compliance` menu tab, then the `Profiles` tab on the left, see that the `CIS Amazon Web Services Foundation Benchmark Level 1` profile is available to your `workstation-x` user.  
 ![Chef Automate Profile](/labs/images/aws-foundation.png)
@@ -397,8 +397,8 @@ Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0'
 3. Next lets execute that profile against the AWS API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run, some will emit a warning as the IAM role I am using does not have all of the required permissions, you can ignore these warnings:   
 `inspec exec compliance://workstation-<x>/cis-aws-benchmark-level1 -t aws:// --config=reporter.json` 
   
-Your output will be as follows:  
-```bash
+  Your output will be as follows:  
+  ```bash
         ×  EC2 Security Group: ID: sg-d11d0xxx Name: default VPC ID: vpc-a966exxx  in us-west-2 is expected not to allow in {:ipv4_range=>"0.0.0.0/0", :port=>22}
         expected `EC2 Security Group: ID: sg-d11d0xxx Name: default VPC ID: vpc-a966exxx  in us-west-2.allow_in?({:ipv4_range=>"0.0.0.0/0", :port=>22})` to return false, got true
       ✔  cis-aws-benchmark-iam-1.10: Ensure IAM password policy prevents password reuse
