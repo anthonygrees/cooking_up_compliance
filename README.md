@@ -18,11 +18,14 @@ This is a hands on workshop and you will require:
 The following is the lab material:
 | Item | Course  | 
 | :---: |:-------------| 
-| 1. | [Introduction to InSpec](labs/intro.md) |
+|  | InSpec Introduction |
+| 1. | [InSpec Profiles](labs/intro_profiles.md) |
+| 2. | [InSpec Resources](labs/intro_resources.md) |
 | | |
-| 2. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
-| 3. |  [Scan Azure Cloud with InSpec](labs/azure_cloud.md) |
-| 4. | [Scan GCP Cloud with InSpec](labs/gcp_cloud.md) |
+|  | InSpec Hands On Labs |
+| 3. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
+| 4. |  Scan Azure Cloud with InSpec ** COMING SOON |
+| 5. | Scan GCP Cloud with InSpec ** COMING SOON  |
   
   
   

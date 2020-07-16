@@ -1,4 +1,4 @@
-# Introduction to InSpec
+# Introduction to InSpec Profiles
 
 [Back to the Lab Index](../README.md)
 
@@ -146,3 +146,6 @@ control 'Big Rock Show' do
   end
 end
 ```
+  
+
+[Back to the Lab Index](../README.md)
