@@ -182,23 +182,26 @@ Replace x with your workstation number given to you by the instructor.
 
 4. The Chrome Browser should already be open, if not open it and navigate to the Chef Automate URL - https://anthony-a2.chef-demo.com/.  
    
-4a. In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our AWS-API scan is our node.  
-![Chef Automate Compliance](/labs/images/aws-compliance.png "Chef Automate Compliance") 
-  
-4b. Click the `"x" Nodes` menu to see the Node list. 
-![Chef Automate Compliance](/labs/images/aws-node.png "Chef Automate Compliance") 
-  
-4c. Click on the node that is your scan to see the detail of the scan.  
-![Chef Automate Compliance](/labs/images/aws-node-detail.png "Chef Automate Compliance") 
-  
-4d. Notice that we have 3 Controls and one of them is a skipped control for your aws-api scanned node.  
-Click the `+` next to the `aws-vpcs-check` control to reveal the Results:  
-![Control Result](/labs/images/aws-control-results.png) 
-  
-  
-4e. Make a note of one of the VPC id's we are going to use that later.  
-The Source - the actual InSpec code that ran to perform the check:  
-![Control Source](/labs/images/aws-control-source.png) 
+    4a. In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our AWS-API scan is our node.  
+    ![Chef Automate Compliance](/labs/images/aws-compliance.png "Chef Automate Compliance") 
+      
+
+    4b. Click the `"x" Nodes` menu to see the Node list. 
+    ![Chef Automate Compliance](/labs/images/aws-node.png "Chef Automate Compliance") 
+      
+
+    4c. Click on the node that is your scan to see the detail of the scan.  
+    ![Chef Automate Compliance](/labs/images/aws-node-detail.png "Chef Automate Compliance") 
+      
+      
+    4d. Notice that we have 3 Controls and one of them is a skipped control for your aws-api scanned node.  
+    Click the `+` next to the `aws-vpcs-check` control to reveal the Results:  
+    ![Control Result](/labs/images/aws-control-results.png) 
+      
+      
+    4e. Make a note of one of the VPC id's we are going to use that later.  
+    The Source - the actual InSpec code that ran to perform the check:  
+    ![Control Source](/labs/images/aws-control-source.png) 
 
 ### 4. Using InSpec Attributes
 
