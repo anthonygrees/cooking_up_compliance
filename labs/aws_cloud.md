@@ -182,21 +182,21 @@ Replace x with your workstation number given to you by the instructor.
 
 4. The Chrome Browser should already be open, if not open it and navigate to the Chef Automate URL - https://anthony-a2.chef-demo.com/.  
    
-In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our AWS-API scan is our node.  
+4a. In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our AWS-API scan is our node.  
 ![Chef Automate Compliance](/labs/images/aws-compliance.png "Chef Automate Compliance") 
   
-Click the `"x" Nodes` menu to see the Node list. 
+4b. Click the `"x" Nodes` menu to see the Node list. 
 ![Chef Automate Compliance](/labs/images/aws-node.png "Chef Automate Compliance") 
   
-Click on the node that is your scan to see the detail of the scan.  
+4c. Click on the node that is your scan to see the detail of the scan.  
 ![Chef Automate Compliance](/labs/images/aws-node-detail.png "Chef Automate Compliance") 
   
-Notice that we have two Passed Controls and one skipped control for your aws-api scanned node.  
+4d. Notice that we have 3 Controls and one of them is a skipped control for your aws-api scanned node.  
 Click the `+` next to the `aws-vpcs-check` control to reveal the Results:  
 ![Control Result](/labs/images/aws-control-results.png) 
   
   
-Make a note of one of the VPC id's we are going to use that later.  
+4e. Make a note of one of the VPC id's we are going to use that later.  
 The Source - the actual InSpec code that ran to perform the check:  
 ![Control Source](/labs/images/aws-control-source.png) 
 
@@ -229,13 +229,17 @@ The Source - the actual InSpec code that ran to perform the check:
     Test Summary: 294 successful, 1 failure, 0 skipped
   ```
 
-4. Take a look at the results in Chef Automate, you should now see all three controls passing.  
+4. Take a look at the results in Chef Automate, you should now see all three controls have run and are either Passed or Failed with none Skipped.  
 ![Control Results](/labs/images/aws-controls-passing.png) 
 
 ### 5. Using InSpec Waivers
 
 1. What if we really do not want to run one of the controls? InSpec has a Waiver capability to allow you to do this.  
-Under the `aws` directory create a `waiver.yml` file and add the following to it:  
+Under the `aws` directory create a `waiver.yml` file.  You can create the file by either:  
+ - right clicking on the aws directory or  
+ - in the terminal type `touch waiver.yml`  
+    
+Now add the following to it:   
 ``` yml
 aws-vpcs-check:
   expiration_date: 2021-02-28
@@ -252,10 +256,12 @@ aws-vpcs-check:
 ### 6. Writing your own InSpec Profile
 1. InSpec ships with many out of the box resources that allow you to easily implement security checks, see [https://www.inspec.io/docs/reference/resources/](https://www.inspec.io/docs/reference/resources/). 
   
-In this exercise we are going to explore the Plural Resource [`aws_iam_roles`](https://www.inspec.io/docs/reference/resources/aws_iam_roles/) and its equivalent Singular Resource [`aws_iam_role`](https://www.inspec.io/docs/reference/resources/aws_iam_role/) to implement the test.  
+  In this exercise we are going to explore the Plural Resource [`aws_iam_roles`](https://www.inspec.io/docs/reference/resources/aws_iam_roles/) and its equivalent Singular Resource [`aws_iam_role`](https://www.inspec.io/docs/reference/resources/aws_iam_role/) to implement the test.  
 
 2. The test will allow us to check that all AWS IAM Roles defined have an appropriate max session duration.  
-Under the `controls` directory delete the `example.rb` file and create a `roles.rb` file, type the following into the file.  
+Under the `controls` directory delete the `example.rb` file.  
+    
+3. Create a `roles.rb` file, type the following into the file.  
   
 ``` ruby
 control "aws-role-session-check" do
@@ -271,37 +277,37 @@ control "aws-role-session-check" do
 end
 ```
   
-3. Execute your InSpec tests (it will take about a minute to run):   
-`inspec exec . -t aws:// --config=reporter.json --input-file=attributes.yml`   
+4. Execute your InSpec tests (it will take about a minute to run):   
+`inspec exec . -t aws:// --config=reporter.json`   
   
 ``` 
 Profile: AWS InSpec Profile (aws)
 Version: 0.1.0
-Target:  aws://eu-west-1
+Target:  aws://us-west-2
 
-  ×  aws-role-session-check: Check in all the iam roles that the session timeout is large enough (130 failed)
-     ✔  AWS IAM Role ak_logger_agent is expected to exist
-     ×  AWS IAM Role ak_logger_agent max_session_duration is expected to be >= 7200
+  ×  aws-role-session-check: Check in all the iam roles that the session timeout is large enough (143 failed)
+     ✔  AWS IAM Role a2XXEEEEDDD-role-ft5obr8p is expected to exist
+     ×  AWS IAM Role a2XXEEEEDDD-role-ft5obr8p max_session_duration is expected to be >= 7200
      expected: >= 7200
           got:    3600
 .
 .
 . Truncated
 .
-     ✔  AWS IAM Role apprentice-role-1019d32e is expected to exist
-     ×  AWS IAM Role apprentice-role-1019d32e max_session_duration is expected to be >= 7200
+     ✔  AWS IAM Role work_DefaultRole is expected to exist
+     ×  AWS IAM Role work_DefaultRole max_session_duration is expected to be >= 7200
      expected: >= 7200
           got:    3600
 
 
 Profile: Amazon Web Services  Resource Pack (inspec-aws)
-Version: 1.8.2
-Target:  aws://eu-west-1
+Version: 1.26.1
+Target:  aws://us-west-2
 
      No tests executed.
 
 Profile Summary: 0 successful controls, 1 control failure, 0 controls skipped
-Test Summary: 132 successful, 130 failures, 0 skipped
+Test Summary: 145 successful, 143 failures, 0 skipped
 ```
   
 You can also see the resuls in the Chef Automate browser.  
@@ -311,7 +317,8 @@ We can see at this point that the session timeouts are set too low - now would b
 ### 7. Debugging an InSpec Profile
 (Advanced - skip if you want).  
   
-1.  Debugging your test: As you build out your tests it is useful to be able to debug them, we can use `pry` for that. Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you sholuld see output like this:  
+1.  Debugging your test: As you build out your tests it is useful to be able to debug them, we can use `pry` for that.   
+   Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you should see output like this:  
 ``` ruby
      1: control "aws-role-session-check" do
      2:   impact 1.0
@@ -371,7 +378,9 @@ pry(#<Inspec::Rule>)> describe aws_iam_role(role)
 5. Press `q` to exit and `exit-program` to exit pry.  
 
 ### 8. Center For Internet Security (CIS) Profile execution
-The Centre for Internet Security produces a CIS AWS Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, it is fully accreditied by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the AWS cloud. 
+The Centre for Internet Security produces a CIS AWS Foundation Benchmark.  
+  
+Chef has implemented that benchmark uisng InSpec, it is fully accreditied by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the AWS cloud. 
 
 1. Login to Chef Automate via the terminal:  
 `inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com`   
@@ -382,11 +391,29 @@ For example:
 Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'  
 ```
   
-2. Open the Chrome Browser and go to the `Compliance` menu tab, then the `Profiles` tab on the left, see that the `CIS Amazon Web Services Foundation Benchmark Level 1` profile is available to your `workstation-x` user.  
+2. Open the Chrome Browser and in Chef Automate, go to the `Compliance` menu tab, then the `Profiles` tab on the left, see that the `CIS Amazon Web Services Foundation Benchmark Level 1` profile is available to your `workstation-x` user.  
 ![Chef Automate Profile](/labs/images/aws-foundation.png)
   
 3. Next lets execute that profile against the AWS API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run, some will emit a warning as the IAM role I am using does not have all of the required permissions, you can ignore these warnings:   
 `inspec exec compliance://workstation-<x>/cis-aws-benchmark-level1 -t aws:// --config=reporter.json` 
+  
+Your output will be as follows:  
+```bash
+        ×  EC2 Security Group: ID: sg-d11d0xxx Name: default VPC ID: vpc-a966exxx  in us-west-2 is expected not to allow in {:ipv4_range=>"0.0.0.0/0", :port=>22}
+        expected `EC2 Security Group: ID: sg-d11d0xxx Name: default VPC ID: vpc-a966exxx  in us-west-2.allow_in?({:ipv4_range=>"0.0.0.0/0", :port=>22})` to return false, got true
+      ✔  cis-aws-benchmark-iam-1.10: Ensure IAM password policy prevents password reuse
+        ✔  AWS IAM Password Policy is expected to prevent password reuse
+
+
+    Profile: Amazon Web Services  Resource Pack (inspec-aws)
+    Version: 1.0.1
+    Target:  aws://us-west-2
+
+        No tests executed.
+
+    Profile Summary: 14 successful controls, 18 control failures, 4 controls skipped
+    Test Summary: 489 successful, 122 failures, 4 skipped
+  ```
   
 4. Look at the scan results in the Chef Automate browser:   
 ![CIS AWS API Scan Results](/labs/images/aws-cis-run.png)
