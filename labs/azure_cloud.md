@@ -28,7 +28,7 @@
 
     iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
-    iv. From the VS Code menu click `Terminal` and then `New Terminal`.  
+    iv. From the VS Code menu click `View` and then `Terminal`.  
     Your setup should now look similar to this:  
     ![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
 
@@ -44,15 +44,79 @@ Replace x with your workstation number given to you by the instructor.
 1. Check to make sure that InSpec can talk to Azure, in the vscode terminal type:  
 `inspec detect -t azure://` (if prompted accept the Chef License).  
   
+    ```bash
+    +---------------------------------------------+
+                Chef License Acceptance
+
+    Before you can continue, 1 product license
+    must be accepted. View the license at
+    https://www.chef.io/end-user-license-agreement/
+
+    License that need accepting:
+      * Chef InSpec
+
+    Do you accept the 1 product license (yes/no)?
+
+    > yes
+
+    Persisting 1 product license...
+    ✔ 1 product license persisted.
+
+    +---------------------------------------------+
+
+    ────────────────────────────── Platform Details ────────────────────────────── 
+
+    Name:      azure
+    Families:  cloud, api
+    Release:   azure_mgmt_resources-v0.17.9
+    ```
 2. Create an InSpec profile to scan azure, in the terminal type:  
 `inspec init profile azure --platform=azure`  
 `cd azure`  
+    
+  ```bash
+    ─────────────────────────── InSpec Code Generator ─────────────────────────── 
 
+  Creating new profile at /home/ec2-user/inspec-labs/azure
+  • Creating file README.md
+  • Creating directory controls
+  • Creating file controls/example.rb
+  • Creating file inspec.yml
+ ```
+   
 Observe the files and directories created in the terminal or the vscode file browser on the left.  
   
-3. Scan Azure with your newly created profile:<br />
-`inspec exec . -t azure://`<br />
-4. Send the InSpec scan results to Chef Automate. First you need to create a `reporter.json` file like this in the `azure` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with your workstation number. You can create the file by right clicking on the `azure` directory or in the terminal with `touch reporter.json`<br />
+3. Scan Azure with your newly created profile:  
+`inspec exec . -t azure://`  
+  
+```bash
+    Profile: Azure InSpec Profile (azure)
+    Version: 0.1.0
+    Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
+
+      ×  azure-virtual-machines-exist-check: Check resource groups to see if any VMs exist. (48 failed)
+        ×  Azure Virtual Machines is expected to exist
+        expected Azure Virtual Machines to exist
+        ×  Azure Virtual Machines is expected to exist
+    *** Truncated
+        ×  Azure Virtual Machines is expected to exist
+        expected Azure Virtual Machines to exist
+        ×  Azure Virtual Machines is expected to exist
+        expected Azure Virtual Machines to exist
+
+
+    Profile: Azure Resource Pack (inspec-azure)
+    Version: 1.18.2
+    Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
+
+        No tests executed.
+
+    Profile Summary: 0 successful controls, 1 control failure, 0 controls skipped
+    Test Summary: 5 successful, 48 failures, 0 skipped
+```
+  
+
+4. Send the InSpec scan results to Chef Automate. First you need to create a `reporter.json` file like this in the `azure` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with your workstation number. You can create the file by right clicking on the `azure` directory or in the terminal with `touch reporter.json`  
 You will also need to create a UUID for your Azure scan, run `uuidgen` in your terminal.
 ``` json
 {
@@ -72,27 +136,27 @@ You will also need to create a UUID for your Azure scan, run `uuidgen` in your t
   }
 }
 ```
-Lets run the scan again but now report the results to Chef Automate<br />
-`inspec exec . -t azure:// --config=reporter.json`<br />
-The Chrome Browser should already be open, if not open it and ask your instructor for the Chef Automate URL to use.<br />
-In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our Azure-API scan is our node.<br />
-![Chef Automate Compliance](/labs/images/azure-compliance.png "Chef Automate Compliance")<br />
-Click the `"x" Nodes` menu to see the Node list.<br />
-![Chef Automate Compliance](/labs/images/azure-node.png "Chef Automate Compliance")<br />
-Click on the node that is your scan to see the detail of the scan.<br />
-![Chef Automate Compliance](/labs/images/azure-node-detail.png "Chef Automate Compliance")<br />
-Notice that we have a Failed Control for your azure-api scanned node.<br />
-Click the `+` next to the `azure-virtual-machines-exist-check` control to reveal the Results:<br />
-![Control Result](/labs/images/azure-control-results.png)<br />
-The Source - the actual InSpec code that ran to perform the check:<br />
-![Control Source](/labs/images/azure-control-source.png)<br />
-5. InSpec executions can be Input driven. Lets convert our control to be driven by an input file.<br />
-Create an `input.yml` file in the `azure` directory.<br />
-Open the `input.yml` file and add the following<br />
+Lets run the scan again but now report the results to Chef Automate  
+`inspec exec . -t azure:// --config=reporter.json`  
+The Chrome Browser should already be open, if not open it and ask your instructor for the Chef Automate URL to use.  
+In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our Azure-API scan is our node.  
+![Chef Automate Compliance](/labs/images/azure-compliance.png "Chef Automate Compliance")  
+Click the `"x" Nodes` menu to see the Node list.  
+![Chef Automate Compliance](/labs/images/azure-node.png "Chef Automate Compliance")  
+Click on the node that is your scan to see the detail of the scan.  
+![Chef Automate Compliance](/labs/images/azure-node-detail.png "Chef Automate Compliance")  
+Notice that we have a Failed Control for your azure-api scanned node.  
+Click the `+` next to the `azure-virtual-machines-exist-check` control to reveal the Results:  
+![Control Result](/labs/images/azure-control-results.png)  
+The Source - the actual InSpec code that ran to perform the check:  
+![Control Source](/labs/images/azure-control-source.png)  
+5. InSpec executions can be Input driven. Lets convert our control to be driven by an input file.  
+Create an `input.yml` file in the `azure` directory.  
+Open the `input.yml` file and add the following  
 ```
 loc: 'eastus'
 ```
-Change control in `example.rb` to use the new input.<br />
+Change control in `example.rb` to use the new input.  
 ``` ruby
 title "Input file example"
 
@@ -111,23 +175,23 @@ control "azure-virtual-machines-exist-check" do
   end
 end
 ```
-Lets run InSpec again this time specifying the `input.yml` file as an input file:<br />
-`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml`<br />
-6. What if we really do not want to run a control? InSpec has a Waiver capability to allow you to do this.<br />
-Under the `azure` directory create a `waiver.yml` file and add the following to it:<br />
+Lets run InSpec again this time specifying the `input.yml` file as an input file:  
+`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml`  
+6. What if we really do not want to run a control? InSpec has a Waiver capability to allow you to do this.  
+Under the `azure` directory create a `waiver.yml` file and add the following to it:  
 ``` yml
 azure-virtual-machines-exist-check:
   expiration_date: 2021-02-28
   run: false
   justification: "Security have signed off not doing this check until the end of February 2021"
 ```
-Run InSpec with the waiver like this:<br />
-`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml --waiver-file waiver.yml `<br />
-Look in Chef Automate to see the waiver results, including the reason for the waiver:<br />
-![Control Results](/labs/images/azure-waiver.png)<br />
+Run InSpec with the waiver like this:  
+`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml --waiver-file waiver.yml `  
+Look in Chef Automate to see the waiver results, including the reason for the waiver:  
+![Control Results](/labs/images/azure-waiver.png)  
 ## 3. Writing your own InSpec Profile
-1. InSpec ships with many out of the box resources that allow you to easily implement security checks, see [https://www.inspec.io/docs/reference/resources/](https://www.inspec.io/docs/reference/resources/).<br />
- In this exercise we are going to use the Plural Resource [`azurerm_storage_account_blob_containers`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_containers/) and its equivalent Singular Resource [`azurerm_storage_account_blob_container`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_container/) to implement the test.<br />
+1. InSpec ships with many out of the box resources that allow you to easily implement security checks, see [https://www.inspec.io/docs/reference/resources/](https://www.inspec.io/docs/reference/resources/).  
+ In this exercise we are going to use the Plural Resource [`azurerm_storage_account_blob_containers`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_containers/) and its equivalent Singular Resource [`azurerm_storage_account_blob_container`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_container/) to implement the test.  
 Under the `controls` directory delete the `example.rb` file and create a `blob.rb` file, type the following into the file.
 
 ``` ruby
@@ -145,8 +209,8 @@ control "azure-check-blob-storage" do
   end
 end
 ```
-Execute your InSpec tests:<br />
-`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml`<br />
+Execute your InSpec tests:  
+`inspec exec . -t azure:// --config=reporter.json --input-file=input.yml`  
 ``` 
 Profile: Azure InSpec Profile (azure)
 Version: 0.1.0
@@ -168,8 +232,8 @@ Test Summary: 2 successful, 0 failures, 0 skipped
 ```
 You can also see the resuls in the Chef Automate browser.
 
-We can use this information to adjust the software that creates the storage blobs, which could be Chef remediation cookbooks.<br />
-2. Debugging your test (advanced, skip if you want). As you build out your tests it is useful to be able to debug them, we can use `pry` for that. Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you sholuld see output like this:<br />
+We can use this information to adjust the software that creates the storage blobs, which could be Chef remediation cookbooks.  
+2. Debugging your test (advanced, skip if you want). As you build out your tests it is useful to be able to debug them, we can use `pry` for that. Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you sholuld see output like this:  
 ``` ruby
      4: 
      5: control "azure-check-blob-storage" do 
@@ -183,14 +247,14 @@ We can use this information to adjust the software that creates the storage blob
     13:     end
     14:   end
 ```
-Execution has been stopped just after the call to the `azurerm_storage_account_blob_containers` resource. The `names` method returns the storage names, we can see the first name returned by typing `blob`.<br />
+Execution has been stopped just after the call to the `azurerm_storage_account_blob_containers` resource. The `names` method returns the storage names, we can see the first name returned by typing `blob`.  
 ``` ruby
 [1] pry(#<Inspec::Rule>)> blob
 => "apprentice-chef-test"
 ```
-We can go even further and see what our later<br />
-`describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)`<br />
-code will do, try it:<br />
+We can go even further and see what our later  
+`describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)`  
+code will do, try it:  
 ``` ruby
 pry(#<Inspec::Rule>)> describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)
 => [["describe",
@@ -214,25 +278,25 @@ pry(#<Inspec::Rule>)> describe azurerm_storage_account_blob_container(resource_g
       truncated
 
   ```
-  We can see the instance varaible that we are perfoming our check against:<br />
+  We can see the instance varaible that we are perfoming our check against:  
   ``` ruby
       @name="apprentice-chef-test",
 ```
 Press `q` to exit and `exit-program` to exit pry.
 ## 4. Center For Internet (CIS) Profile execution
-1. The Center for Internet Security produces the CIS Azure Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, which is also certified by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the Azure cloud.<br />
-Login to Chef Automate via the terminal:<br />
-`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`<br />
-For example:<br />
+1. The Center for Internet Security produces the CIS Azure Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, which is also certified by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the Azure cloud.  
+Login to Chef Automate via the terminal:  
+`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`  
+For example:  
 `inspec compliance login --insecure --user=workstation-1 --token m6E8BQ5iCWLMBFUpIPRlRhrqR6k= afd-a2.chefdemo.cloud`
 ```
 Stored configuration for Chef Automate2: https://afd-a2.chefdemo.cloud/api/v0' with user: 'workstation-1'
 ```
 Open the Chrome Browser and go to the `Compliance` menu, then the `Profiles` tab on the left, see that the `CIS Azure Foundations Benchmark 1.1.0 Level 1` profile is available to your `workstation-x` user.
 ![Chef Automate Profile](/labs/images/azure-foundation.png)
-Next lets execute that profile against the Azure API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run.<br />
-`inspec exec compliance://workstation-<x>/cis-azure-foundations-level1 -t azure:// --config=reporter.json`<br />
-Look at the scan results in the Chef Automate browser:<br />
+Next lets execute that profile against the Azure API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run.  
+`inspec exec compliance://workstation-<x>/cis-azure-foundations-level1 -t azure:// --config=reporter.json`  
+Look at the scan results in the Chef Automate browser:  
 ![CIS Azure API Scan Results](/labs/images/azure-cis-run.png)
 
 
