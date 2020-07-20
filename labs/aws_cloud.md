@@ -28,7 +28,7 @@
 
     iii. Close the Welcome page and click on the `Explorer icon` on the top left, Select `Open Folder` and fill in `/home/ec2-user/inspec-labs` and click `OK`.
 
-    iv. From the VS Code menu click `Terminal` and then `New Terminal`.  
+    iv. From the VS Code menu click `View` and then `Terminal`.  
     Your setup should now look similar to this:  
     ![Lab Setup Image](/labs/images/vscode-setup.png "Lab Setup")
 
