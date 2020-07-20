@@ -20,7 +20,7 @@ The following is the lab material:
 | :---: |:-------------| 
 |  | InSpec Introduction |
 | 1. | [InSpec Profiles](labs/intro_profiles.md) |
-| 2. | [InSpec Resources](labs/intro_resources.md) |
+| 2. | [InSpec Resources and Matchers](labs/intro_resources.md) |
 | | |
 |  | InSpec Hands On Labs |
 | 3. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
