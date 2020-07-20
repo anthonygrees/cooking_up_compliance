@@ -1,4 +1,4 @@
-# Introduction to InSpec Resources
+# Introduction to InSpec Resources and Matchers
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
