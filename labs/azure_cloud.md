@@ -424,8 +424,9 @@ We are now going to obtain that benchmark from Chef Automate and execute it agai
 `inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`    
   
 For example:  
-`inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com/`
-  
+`inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`
+   
+The output will be:
 ```bash  
   
 Stored configuration for Chef Automate2: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'
@@ -440,8 +441,30 @@ Stored configuration for Chef Automate2: https://anthony-a2.chef-demo.com/api/v0
     
 `inspec exec compliance://workstation-<x>/cis-azure-foundations-level1 -t azure:// --config=reporter.json`   
   
-Look at the scan results in the Chef Automate browser:  
+***This will take about 3 minutes to execute.***
+  
+```bash
+     ✔  erredede Storage Account properties is expected to have attributes {:supportsHttpsTrafficOnly => true}
+     ✔  tyususu Storage Account properties is expected to have attributes {:supportsHttpsTrafficOnly => true}
+     ✔  chefssinfrastorage Storage Account properties is expected to have attributes {:supportsHttpsTrafficOnly => true}
+  ×  5.1.5: Ensure the storage container storing the activity logs is not publicly accessible
+     ×  Log Profiles names is expected not to be empty
+     expected `[].empty?` to return false, got true
+  ↺  3.4: Ensure that shared access signature tokens expire within an hour
+     ↺  No Azure API support.
+     
+         Currently, SAS token expiration times cannot be audited.
+         Until Microsoft makes token expiration time a setting rather than a token creation parameter,
+         this recommendation would require a manual verification.
+     
+         When generating shared access signature tokens, use start and end time such that it falls within an hour.
+
+Profile Summary: 2 successful controls, 38 control failures, 18 controls skipped
+Test Summary: 45 successful, 93 failures, 18 skipped
+```  
+  
+5. Look at the scan results in the Chef Automate browser:  
 ![CIS Azure API Scan Results](/labs/images/azure-cis-run.png)
-
-
+  
+  
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
