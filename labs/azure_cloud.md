@@ -40,7 +40,7 @@ Password = workstation!
 Replace x with your workstation number given to you by the instructor.
 ![Lab Setup Image](/labs/images/automate.png "Automate")  
   
-## 2. Explore Your first InSpec Profile
+## 2. Create Your first InSpec Profile
 1. Check to make sure that InSpec can talk to Azure, in the vscode terminal type:  
 `inspec detect -t azure://` (if prompted accept the Chef License).  
   
@@ -115,18 +115,28 @@ Observe the files and directories created in the terminal or the vscode file bro
     Test Summary: 5 successful, 48 failures, 0 skipped
 ```
   
+### 3. Send you InSpec Results ti Chef Automate
 
-4. Send the InSpec scan results to Chef Automate. First you need to create a `reporter.json` file like this in the `azure` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with your workstation number. You can create the file by right clicking on the `azure` directory or in the terminal with `touch reporter.json`  
-You will also need to create a UUID for your Azure scan, run `uuidgen` in your terminal.
+1. You will need to create a UUID for your Azure scan, run `uuidgen` in your terminal.   
+  
+You will see output as follows:
+```bash
+  [ec2-user@ip-172-31-54-168 aws]$ uuidgen
+  c6754ceb-b9a8-4917-a797-c0d0589246d6
+```
+  
+2. Next you need to create a reporter.json file like this in the aws directory, your instructor should have given you the Chef Automate Hostname and Token. Replace <x> with you workstation number. You can create the file by either:  
+ - right clicking on the aws directory or
+ - in the terminal type `touch reporter.json`
 ``` json
 {
   "reporter": {
     "automate" : {
       "stdout" : false,
-      "url" : "https://<Chef Automate Hostname>/data-collector/v0/",
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
       "token" : "<Chef Automate Token>",
       "insecure" : true,
-      "node_name" : "workstation-<x>-azure-api",
+      "node_name" : "YourName-azure-api",
       "environment" : "cloud-api",
       "node_uuid" : "<uuidgen>"
     },
@@ -136,10 +146,31 @@ You will also need to create a UUID for your Azure scan, run `uuidgen` in your t
   }
 }
 ```
-Lets run the scan again but now report the results to Chef Automate  
-`inspec exec . -t azure:// --config=reporter.json`  
-The Chrome Browser should already be open, if not open it and ask your instructor for the Chef Automate URL to use.  
-In Chef Automate Click the `Compliance` menu, observe your node, there may be other nodes from your classmates. In Chef Automate we refer to everything as a node, so in this case our Azure-API scan is our node.  
+  
+3. Lets run the scan again but now report the results to Chef Automate  
+```inspec exec . -t azure:// --config=reporter.json```  
+  
+You will see output as follows:  
+```bash
+  ×  Azure Virtual Machines is expected to exist
+     expected Azure Virtual Machines to exist
+     ✔  Azure Virtual Machines is expected to exist
+     ×  Azure Virtual Machines is expected to exist
+     expected Azure Virtual Machines to exist
+     ×  Azure Virtual Machines is expected to exist
+     expected Azure Virtual Machines to exist
+
+
+Profile: Azure Resource Pack (inspec-azure)
+Version: 1.18.4
+Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
+
+     No tests executed.
+
+Profile Summary: 0 successful controls, 1 control failure, 0 controls skipped
+Test Summary: 2 successful, 48 failures, 0 skipped
+```
+  
 ![Chef Automate Compliance](/labs/images/azure-compliance.png "Chef Automate Compliance")  
 Click the `"x" Nodes` menu to see the Node list.  
 ![Chef Automate Compliance](/labs/images/azure-node.png "Chef Automate Compliance")  
@@ -150,7 +181,7 @@ Click the `+` next to the `azure-virtual-machines-exist-check` control to reveal
 ![Control Result](/labs/images/azure-control-results.png)  
 The Source - the actual InSpec code that ran to perform the check:  
 ![Control Source](/labs/images/azure-control-source.png)  
-5. InSpec executions can be Input driven. Lets convert our control to be driven by an input file.  
+1. InSpec executions can be Input driven. Lets convert our control to be driven by an input file.  
 Create an `input.yml` file in the `azure` directory.  
 Open the `input.yml` file and add the following  
 ```
