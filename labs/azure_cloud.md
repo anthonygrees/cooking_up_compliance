@@ -40,7 +40,7 @@ Password = workstation!
 Replace x with your workstation number given to you by the instructor.
 ![Lab Setup Image](/labs/images/automate.png "Automate")  
   
-## 2. Create Your first InSpec Profile
+### 2. Create Your first InSpec Profile
 1. Check to make sure that InSpec can talk to Azure, in the vscode terminal type:  
 `inspec detect -t azure://` (if prompted accept the Chef License).  
   
@@ -252,22 +252,50 @@ Test Summary: 0 successful, 2 failures, 0 skipped
      
 1. What if we really do not want to run a control? InSpec has a Waiver capability to allow you to do this.  
    
-Under the `azure` directory create a `waiver.yml` file and add the following to it:  
+Under the `azure` directory create a `waiver.yml` file.  Run the following command `touch waiver.yml`
+  
+Then add the following to it:  
 ``` yml
 azure-virtual-machines-exist-check:
   expiration_date: 2021-02-28
   run: false
   justification: "Security have signed off not doing this check until the end of February 2021"
-```
-Run InSpec with the waiver like this:  
+```  
+  
+2. Run InSpec with the waiver like this:  
 `inspec exec . -t azure:// --config=reporter.json --input-file=input.yml --waiver-file waiver.yml `  
-Look in Chef Automate to see the waiver results, including the reason for the waiver:  
+  
+```bash
+Profile: Azure InSpec Profile (azure)
+Version: 0.1.0
+Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
+
+  ↺  azure-virtual-machines-exist-check: Check resource groups to see if any VMs exist.
+     ↺  Skipped control due to waiver condition: Security have signed off not doing this check until the end of February 2021
+
+
+Profile: Azure Resource Pack (inspec-azure)
+Version: 1.18.5
+Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
+
+     No tests executed.
+
+Profile Summary: 0 successful controls, 0 control failures, 1 control skipped
+Test Summary: 0 successful, 0 failures, 1 skipped
+```
+  
+3. Look in Chef Automate to see the waiver results, including the reason for the waiver:  
 ![Control Results](/labs/images/azure-waiver.png)  
   
-
-## 6. Writing your own InSpec Profile
+  
+## 6. Writing your own InSpec Profile  
+  
 1. InSpec ships with many out of the box resources that allow you to easily implement security checks, see [https://www.inspec.io/docs/reference/resources/](https://www.inspec.io/docs/reference/resources/).  
- In this exercise we are going to use the Plural Resource [`azurerm_storage_account_blob_containers`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_containers/) and its equivalent Singular Resource [`azurerm_storage_account_blob_container`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_container/) to implement the test.  
+   
+
+2. In this exercise we are going to use the Plural Resource [`azurerm_storage_account_blob_containers`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_containers/) and its equivalent Singular Resource [`azurerm_storage_account_blob_container`](https://www.inspec.io/docs/reference/resources/azurerm_storage_account_blob_container/) to implement the test.  
+
+
 Under the `controls` directory delete the `example.rb` file and create a `blob.rb` file, type the following into the file.
 
 ``` ruby
@@ -284,34 +312,47 @@ control "azure-check-blob-storage" do
     end
   end
 end
-```
-Execute your InSpec tests:  
+```  
+  
+3. Execute your InSpec tests:  
 `inspec exec . -t azure:// --config=reporter.json --input-file=input.yml`  
 ``` 
 Profile: Azure InSpec Profile (azure)
 Version: 0.1.0
 Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
 
+  ×  azure-virtual-machines-exist-check: Check resource groups to see if any VMs exist. (2 failed)
+     ×  'ttx-test' Virtual Machine location is expected to eq "eastus"
+     
+     expected: "eastus"
+          got: "westeurope"
+     
+     (compared using ==)
+
+     ×  'sa-rttss' Virtual Machine location is expected to eq "eastus"
+     
+     expected: "eastus"
+          got: "westus"
+     
+     (compared using ==)
+
   ✔  azure-check-blob-storage: Check to see if some blob storage exists.
      ✔  apprentice-chef-test Storage Account is expected to exist
      ✔  apprentice-chef-test Storage Account name is expected to eq "apprentice-chef-test"
 
-
-Profile: Azure Resource Pack (inspec-azure)
-Version: 1.14.0
-Target:  azure://b02e675a-cee0-49bd-a056-daa7ed05bf4e
-
-     No tests executed.
-
-Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
-Test Summary: 2 successful, 0 failures, 0 skipped
+Profile Summary: 1 successful control, 1 control failure, 0 controls skipped
+Test Summary: 2 successful, 2 failures, 0 skipped
 ```
-You can also see the resuls in the Chef Automate browser.
-
+  
+4. You can also see the resuls in the Chef Automate browser.
+  
 We can use this information to adjust the software that creates the storage blobs, which could be Chef remediation cookbooks.  
   
-### 7. Debugging InSpec profiles using Pry
-1. Debugging your test (advanced, skip if you want). As you build out your tests it is useful to be able to debug them, we can use `pry` for that. Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you sholuld see output like this:  
+### 7. Debugging InSpec profiles using Pry  
+  
+1. Debugging your test (advanced, skip if you want). As you build out your tests it is useful to be able to debug them, we can use `pry` for that.  
+  
+Uncomment the `require "pry";binding.pry` line and run your InSpec test again, you sholuld see output like this:  
 ``` ruby
      4: 
      5: control "azure-check-blob-storage" do 
@@ -324,15 +365,23 @@ We can use this information to adjust the software that creates the storage blob
     12:       its('name') { should eq('apprentice-chef-test') }
     13:     end
     14:   end
-```
-Execution has been stopped just after the call to the `azurerm_storage_account_blob_containers` resource. The `names` method returns the storage names, we can see the first name returned by typing `blob`.  
+```  
+  
+2. Execution has been stopped just after the call to the `azurerm_storage_account_blob_containers` resource.  
+  
+The `names` method returns the storage names, we can see the first name returned by typing:  
+ `blob`  
+  
 ``` ruby
 [1] pry(#<Inspec::Rule>)> blob
 => "apprentice-chef-test"
-```
-We can go even further and see what our later  
-`describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)`  
-code will do, try it:  
+```  
+  
+
+3. We can go even further and see what our later code will do  
+`describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)`    
+  
+Try it:  
 ``` ruby
 pry(#<Inspec::Rule>)> describe azurerm_storage_account_blob_container(resource_group: 'apprentice-chef', storage_account_name: 'apprenticechef',    blob_container_name: blob)
 => [["describe",
@@ -353,17 +402,20 @@ pry(#<Inspec::Rule>)> describe azurerm_storage_account_blob_container(resource_g
       .
       .
       .
-      truncated
+      *** truncated
 
-  ```
-  We can see the instance varaible that we are perfoming our check against:  
-  ``` ruby
+  ```  
+  
+4. We can see the instance varaible that we are perfoming our check against:  
+``` ruby
       @name="apprentice-chef-test",
-```
+```  
+  
 Press `q` to exit and `exit-program` to exit pry.  
   
-
-## 8. Center For Internet (CIS) Profile execution
+  
+### 8. Center For Internet (CIS) Profile execution
+  
 1. The Center for Internet Security produces the CIS Azure Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, which is also certified by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the Azure cloud.  
 Login to Chef Automate via the terminal:  
 `inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`  
