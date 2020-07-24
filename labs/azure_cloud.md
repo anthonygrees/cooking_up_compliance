@@ -416,18 +416,30 @@ Press `q` to exit and `exit-program` to exit pry.
   
 ### 8. Center For Internet (CIS) Profile execution
   
-1. The Center for Internet Security produces the CIS Azure Foundation Benchmark, Chef has implemented that benchmark uisng InSpec, which is also certified by CIS. We are now going to obtain that benchmark from Chef Automate and execute it against the Azure cloud.  
-Login to Chef Automate via the terminal:  
-`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`  
+1. The Center for Internet Security produces the CIS Azure Foundation Benchmark. Chef has implemented that benchmark uisng InSpec, which is also certified by CIS.  
+  
+We are now going to obtain that benchmark from Chef Automate and execute it against the Azure cloud.  
+    
+2. Login to Chef Automate via the terminal:  
+`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> <Chef Automate Hostname>`    
+  
 For example:  
-`inspec compliance login --insecure --user=workstation-1 --token m6E8BQ5iCWLMBFUpIPRlRhrqR6k= afd-a2.chefdemo.cloud`
-```
-Stored configuration for Chef Automate2: https://afd-a2.chefdemo.cloud/api/v0' with user: 'workstation-1'
-```
-Open the Chrome Browser and go to the `Compliance` menu, then the `Profiles` tab on the left, see that the `CIS Azure Foundations Benchmark 1.1.0 Level 1` profile is available to your `workstation-x` user.
+`inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com/`
+  
+```bash  
+  
+Stored configuration for Chef Automate2: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'
+```  
+  
+3. Open the Chrome Browser and go to the `Compliance` menu, then the `Profiles` tab on the left, see that the `CIS Azure Foundations Benchmark 1.1.0 Level 1` profile is available to your `workstation-x` user.  
+  
 ![Chef Automate Profile](/labs/images/azure-foundation.png)
-Next lets execute that profile against the Azure API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run.  
-`inspec exec compliance://workstation-<x>/cis-azure-foundations-level1 -t azure:// --config=reporter.json`  
+  
+  
+4. Next lets execute that profile against the Azure API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run.  
+    
+`inspec exec compliance://workstation-<x>/cis-azure-foundations-level1 -t azure:// --config=reporter.json`   
+  
 Look at the scan results in the Chef Automate browser:  
 ![CIS Azure API Scan Results](/labs/images/azure-cis-run.png)
 
