@@ -24,7 +24,7 @@ The following is the lab material:
 | | |
 |  | **InSpec Hands On Labs** |
 | 3. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
-| 4. | [Scan AWS Azure with InSpec](labs/azure_cloud.md)|
+| 4. | [Scan Azure with InSpec](labs/azure_cloud.md)|
 | 5. | Scan GCP Cloud with InSpec ** COMING SOON  |
   
   
