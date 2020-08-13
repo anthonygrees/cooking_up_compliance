@@ -21,11 +21,15 @@ The following is the lab material:
 |  | **InSpec Introduction** |
 | 1. | [InSpec Profiles](labs/intro_profiles.md) |
 | 2. | [InSpec Resources and Matchers](labs/intro_resources.md) |
-| | |
-|  | **InSpec Hands On Labs** |
-| 3. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
-| 4. | [Scan Azure with InSpec](labs/azure_cloud.md)|
-| 5. | Scan GCP Cloud with InSpec ** COMING SOON  |
+|    | |
+|    | **InSpec Hands On Labs - Operating Systems** |
+| 3. | [Scan Windows OS with InSpec](labs/windows_os.md) |
+| 4. | [Scan Linux OS with InSpec](labs/linux_os.md) |
+|    | |
+|    | **InSpec Hands On Labs - Cloud** |
+| 5. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
+| 6. | [Scan Azure with InSpec](labs/azure_cloud.md)|
+| 7. | [Scan GCP with InSpec](labs/gcp_cloud.md)|
   
   
   
