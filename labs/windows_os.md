@@ -65,7 +65,7 @@ A Visual Studio Windows will open.
 ### Step 3: Create a simple Windows Version check
 Replace the code in example.rb file with the following:
 
-```bash
+```ruby
 # Windows Versions - Check for Min of Win 2012
 # Win2016 - NT 10.0 | Win 2012 R2 - NT 6.3 | Win 2012 - NT 6.2
 #
