@@ -1,4 +1,7 @@
 # InSpec on Windows
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+  
 InSpec is an open-source testing framework for infrastructure with a human and machine-readable language for specifying compliance, security and policy requirements.  
 
 Don't have InSpec installed?  Here you go - https://downloads.chef.io/inspec. 
@@ -57,7 +60,7 @@ Open Visual Studio Code Editor. Run the following command:
 code .
 ```
 A Visual Studio Windows will open.
-![VS Code](/images/w_vscode.png)
+![VS Code](/labs/images/w_vscode.png)
   
 ### Step 3: Create a simple Windows Version check
 Replace the code in example.rb file with the following:
@@ -334,3 +337,6 @@ You can then drill into each inspec control
 ![A2 Full View](/images/11fullreport.png)
 
 Note the ```node_uuid``` is present in the URL of the node's compliance report.
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
