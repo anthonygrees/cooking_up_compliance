@@ -28,7 +28,7 @@ Note: You may have a newer version of InSpec than ```4.22.1```.
 ### Step 2: Create a new InSpec profile
 Create a new InSpec Profile.  Run the following command:
 ```bash
-inspec init profile windows-example
+inspec init profile windows-example --platform=os
 ```
 Your output will be as follows:
 ```bash
@@ -87,14 +87,30 @@ control 'WINDOWS VERSION' do
   end
 end
 ```
-
+  
 To execute this using InSpec, run the following command
-
 ```bash
 $ inspec exec .
 ```
-![Windows Version](/images/3version.png)
+  
+Your output will be as follows:
+```bash
+PS C:\chef-repo\windows-example> inspec exec .
 
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [PASS]  WINDOWS VERSION: This test checks for a minimum Windows version of 2012 - NT 6.2.0
+     [PASS]  windows is expected to eq "windows"
+     [PASS]  windows_server_2016_datacenter is expected to eq "windows_server_2016_datacenter"
+     [PASS]  10.0.14393 is expected to > "10.0"
+
+
+Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
+  
 ### Step 4: Check Windows Hot Fixes
 Add the following example for looping through Windows KB and Hotfixes
 
