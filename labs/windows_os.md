@@ -59,7 +59,7 @@ Open Visual Studio Code Editor. Run the following command:
 ```bash
 code .
 ```
-A Visual Studio Windows will open.
+A Visual Studio Windows will open.  
 ![VS Code](/labs/images/w_vscode.png)
   
 ### Step 3: Create a simple Windows Version check
