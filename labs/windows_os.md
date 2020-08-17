@@ -9,28 +9,56 @@ Need the code? You will find it here - https://github.com/anthonygrees/complianc
 
 Run the following command. 
 ```bash
-$ inspec --version
+inspec --version
 ```
   
 Your output will be as follows:
 ```bash
+PS C:\chef-repo> inspec --version
 
+4.22.1
+
+PS C:\chef-repo>
 ```
-
+Note: You may have a newer version of InSpec than ```4.22.1```.  
+  
 ### Step 2: Create a new InSpec profile
-Create a new InSpec Profile run the following:
+Create a new InSpec Profile.  Run the following command:
 ```bash
-## Create a New InSpec Profile
-$ inspec init profile <your_profile_name>
-
-## Change Directory into your new Profile
-$ cd <your_profile_name>
-
-## Write your Controls in the example.rb
-$ code controls\example.rb
+inspec init profile windows-example
 ```
-![Create Profile](/images/2createprofile.png)
+Your output will be as follows:
+```bash
+PS C:\chef-repo> inspec init profile windows-example
 
+ ─────────────────────────── InSpec Code Generator ───────────────────────────
+
+Creating new profile at C:/chef-repo/windows-example
+ • Creating directory controls
+ • Creating file controls/example.rb
+ • Creating file inspec.yml
+ • Creating file README.md
+
+PS C:\chef-repo>
+```
+  
+Change Directory into your new Profile.  Run the following command:  
+```bash
+cd windows-example
+```
+Your output will be as follows:
+```bash
+PS C:\chef-repo> cd windows-example
+PS C:\chef-repo\windows-example>
+```
+   
+Open Visual Studio Code Editor. Run the following command:  
+```bash
+code .
+```
+A Visual Studio Windows will open.
+![VS Code](/images/w_vscode.png)
+  
 ### Step 3: Create a simple Windows Version check
 Replace the code in example.rb file with the following:
 
