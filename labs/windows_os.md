@@ -90,7 +90,7 @@ end
   
 To execute this using InSpec, run the following command
 ```bash
-$ inspec exec .
+inspec exec .
 ```
   
 Your output will be as follows:
@@ -114,7 +114,7 @@ Test Summary: 3 successful, 0 failures, 0 skipped
 ### Step 4: Check Windows Hot Fixes
 Add the following example for looping through Windows KB and Hotfixes
 
-```bash
+```ruby
 ## Looping example WannaCry Vulnerability Check
 control 'WINDOWS HOTFIX - LOOP' do
   impact 0.8
@@ -131,14 +131,34 @@ control 'WINDOWS HOTFIX - LOOP' do
   end
 end
 ```
-
+  
 To execute this using InSpec, run the following command
-
 ```bash
-$ inspec exec .
+inspec exec .
 ```
-![Windows Version](/images/4kb.png)
+  
+Your output will be as follows:
+```bash
+PS C:\chef-repo\windows-example> inspec exec .
 
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [PASS]  WINDOWS VERSION: This test checks for a minimum Windows version of 2012 - NT 6.2.0
+     [PASS]  windows is expected to eq "windows"
+     [PASS]  windows_server_2016_datacenter is expected to eq "windows_server_2016_datacenter"
+     [PASS]  10.0.14393 is expected to > "10.0"
+  [PASS]  WINDOWS HOTFIX - LOOP: This test checks that a numberof Windows Hotfixs are installed - Looping Example
+     [PASS]  Windows Hotfix KB4012598 is expected not to be installed
+     [PASS]  Windows Hotfix KB4042895 is expected not to be installed
+     [PASS]  Windows Hotfix KB4041693 is expected not to be installed
+
+
+Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 6 successful, 0 failures, 0 skipped
+```
+  
 ### Step 5: Check if a package is installed
 Is a particular package installed ? Add the following code.
 
