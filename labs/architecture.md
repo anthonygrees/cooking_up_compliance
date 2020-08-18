@@ -1,4 +1,4 @@
-# Chef Architecture
+# Chef Products & Architecture
 
 ### Chef Product Stack
   
