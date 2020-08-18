@@ -542,7 +542,32 @@ Test Summary: 30 successful, 6 failures, 0 skipped
 Your report will also appear under the `compliance` tab
 
 ![A2 Reporter](/labs/images/win_reporter2.png)
-
   
+  
+### Step 12: Using InSpec Waivers
+What if we really do not want to run one of the controls? InSpec has a Waiver capability to allow you to do this.  
+  
+Under the ```windows-example``` directory create a waiver.yml file. You can create the file by either:
+ - right clicking on the aws directory or
+ - in the terminal type ```code waiver.yml```  
+  
+Now add the following to it:
+  
+```yml
+HTTP AND HTTPS:
+  expiration_date: 2021-02-28
+  run: false
+  justification: "Security have signed off not doing this check until the end of February 2021"
+```
+  
+Run InSpec with the waiver like this:  
+```bash
+inspec exec . --json-config inspec.json --waiver-file waiver.yml
+```
+  
+Look in Chef Automate to see the waiver results, including the reason for the waiver:
+  
+![A2 Reporter](/labs/images/win_waiver.png)
+    
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
