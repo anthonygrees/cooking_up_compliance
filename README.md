@@ -1,4 +1,4 @@
-![Chef Events](/labs/images/chef_events.png)
+![Chef Events](/labs/images/Header.png)
 # Cooking Up Compliance - Workshop
   
 **Chef Events - Secure your Cloud with Chef Compliance for AWS, Azure and GCP**
