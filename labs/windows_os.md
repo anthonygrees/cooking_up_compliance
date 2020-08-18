@@ -111,7 +111,75 @@ Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
 Test Summary: 3 successful, 0 failures, 0 skipped
 ```
   
-### Step 4: Check Windows Hot Fixes
+## Step 4: Report in Chef Automate
+Create yourself a GUID.  The New-Guid cmdlet creates a random globally unique identifier (GUID). If you need a unique ID in a script, you can create a GUID, as needed.
+```bash
+New-Guid
+```
+Your output will look like this:
+```bash
+PS C:\chef-repo\windows-example> New-Guid
+
+Guid
+----
+b2303f06-28e4-40fb-af33-0528768213b1
+```
+  
+Copy the GUID.
+  
+Create a file called ```inspec.json``` in <your_profile_name> directory and add the following:
+
+To create the file, type `code inspec.json`
+
+Note: Remember to update the ```json``` and put your name in ```"node_name" : "<YOUR_NAME_HERE>"``` and add your ```TOKEN``` from the spreadsheet.
+
+```json
+{
+  "reporter": {
+    "automate" : {
+      "stdout" : false,
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
+      "token" : "AAAA-AAAA-AAAA-AAAAB",
+      "insecure" : true,
+      "node_name" : "YourName-Win2016",
+      "environment" : "windows",
+      "node_uuid" : "ADD_GUID_HERE"
+    },
+    "cli" : {
+      "stdout" : true
+    }
+  }
+}
+```
+
+To execute this using InSpec and report to A2 run the following command
+
+```bash
+inspec exec . --json-config inspec.json
+```
+Your report will appear under the `compliance` tab
+
+![A2 Reporter](/labs/images/win_reporter1.png)
+  
+  
+You will also see the folloing STDOUT:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [PASS]  WINDOWS VERSION: This test checks for a minimum Windows version of 2012 - NT 6.2.0
+     [PASS]  windows is expected to eq "windows"
+     [PASS]  windows_server_2016_datacenter is expected to eq "windows_server_2016_datacenter"
+     [PASS]  10.0.14393 is expected to > "10.0"
+
+
+Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
+  
+  
+### Step 5: Check Windows Hot Fixes
 Add the following example for looping through Windows KB and Hotfixes
 
 ```ruby
@@ -134,7 +202,7 @@ end
   
 To execute this using InSpec, run the following command
 ```bash
-inspec exec .
+inspec exec . --json-config inspec.json
 ```
   
 Your output will be as follows:
@@ -159,10 +227,10 @@ Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
 Test Summary: 6 successful, 0 failures, 0 skipped
 ```
   
-### Step 5: Check if a package is installed
+### Step 6: Check if a package is installed
 Is a particular package installed ? Add the following code.
 
-```bash
+```ruby
 control 'PACKAGE INSTALLED _ TELNET and CHROME' do
   impact 0.8
   title 'This test checks that a package is installed'
@@ -180,9 +248,31 @@ end
 To execute this using InSpec, run the following command
 
 ```bash
-$ inspec exec .
+inspec exec . --json-config inspec.json
 ```
-![Windows Version](/images/5package.png)
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [PASS]  WINDOWS VERSION: This test checks for a minimum Windows version of 2012 - NT 6.2.0
+     [PASS]  windows is expected to eq "windows"
+     [PASS]  windows_server_2016_datacenter is expected to eq "windows_server_2016_datacenter"
+     [PASS]  10.0.14393 is expected to > "10.0"
+  [PASS]  WINDOWS HOTFIX - LOOP: This test checks that a numberof Windows Hotfixs are installed - Looping Example
+     [PASS]  Windows Hotfix KB4012598 is expected not to be installed
+     [PASS]  Windows Hotfix KB4042895 is expected not to be installed
+     [PASS]  Windows Hotfix KB4041693 is expected not to be installed
+  [PASS]  PACKAGE INSTALLED _ TELNET and CHROME: This test checks that a package is installed
+     [PASS]  System Package telnetd is expected not to be installed
+     [PASS]  System Package Google Chrome is expected to be installed
+
+
+Profile Summary: 3 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 8 successful, 0 failures, 0 skipped
+```
 
 ### Step 6: Check if a Windows Service installed and Enabled
 Is a particular Service installed? Add the following code.
@@ -203,7 +293,7 @@ end
 To execute this using InSpec, run the following command
 
 ```bash
-$ inspec exec .
+inspec exec . --json-config inspec.json
 ```
 ![Windows Version](/images/6service.png)
 
@@ -242,7 +332,7 @@ end
 To execute this using InSpec, run the following command
 
 ```bash
-$ inspec exec .
+inspec exec . --json-config inspec.json
 ```
 ![Windows Version](/images/7http.png)
 
@@ -296,7 +386,7 @@ end
 To execute this using InSpec, run the following command
 
 ```bash
-$ inspec exec .
+inspec exec . --json-config inspec.json
 ```
 ![Windows Version](/images/8task.png)
 
@@ -332,47 +422,11 @@ end
 To execute this using InSpec, run the following command
 
 ```bash
-$ inspec exec .
+inspec exec . --json-config inspec.json
 ```
 ![Windows Version](/images/9cis.png)
 
-## Step 10: Report in Chef Automate
-Create a file called ```inspec.json``` in <your_profile_name> directory and add the following:
 
-To create the file, type `code inspec.json`
-
-Note: Remember to update the ```json``` and put your name in ```"node_name" : "<YOUR_NAME_HERE>"``` and add your ```TOKEN``` from the spreadsheet.
-
-```json
-{
-    "reporter" : {
-        "automate" : {
-            "stdout" : "false",
-            "url" : "https://anthony-a2.chef-demo.com/data-collector/v0",
-            "token" : "AAAA-AAAA-AAAA-AAAAB",
-            "insecure" : true,
-            "node_name" : "<YOUR_NAME_HERE_win_cli>",
-            "node_uuid" : "12345678-1234-1234-1234-123456789012",
-            "environment" : "dev"
-        }
-    }
-}
-```
-
-To execute this using InSpec and report to A2 run the following command
-
-```bash
-$  inspec exec . --json-config inspec.json
-```
-Your report will appear under the `compliance` tab
-
-![A2 Reporter](/images/10reporter.png)
-
-You can then drill into each inspec control
-
-![A2 Full View](/images/11fullreport.png)
-
-Note the ```node_uuid``` is present in the URL of the node's compliance report.
   
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
