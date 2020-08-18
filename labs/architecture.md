@@ -1,5 +1,7 @@
 # Chef Products & Architecture
-
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+  
 ### Chef Product Stack
   
 ![Architecture Stack](/labs/images/architecture_stack.png "Architecture Stack")
@@ -16,3 +18,6 @@ The Chef Products are:
   
   
 ![Architecture Diagram](/labs/images/architecture_diagram.png "Architecture Diagram")
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
