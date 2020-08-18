@@ -274,10 +274,10 @@ Profile Summary: 3 successful controls, 0 control failures, 0 controls skipped
 Test Summary: 8 successful, 0 failures, 0 skipped
 ```
 
-### Step 6: Check if a Windows Service installed and Enabled
+### Step 7: Check if a Windows Service installed and Enabled
 Is a particular Service installed? Add the following code.
 
-```bash
+```ruby
 ## service example
 control 'SERVICE INSTALLED' do
   impact 0.8
@@ -295,12 +295,37 @@ To execute this using InSpec, run the following command
 ```bash
 inspec exec . --json-config inspec.json
 ```
-![Windows Version](/images/6service.png)
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
 
-### Step 7: Checking HTTP and HTTPS
+  [PASS]  WINDOWS VERSION: This test checks for a minimum Windows version of 2012 - NT 6.2.0
+     [PASS]  windows is expected to eq "windows"
+     [PASS]  windows_server_2016_datacenter is expected to eq "windows_server_2016_datacenter"
+     [PASS]  10.0.14393 is expected to > "10.0"
+  [PASS]  WINDOWS HOTFIX - LOOP: This test checks that a numberof Windows Hotfixs are installed - Looping Example
+     [PASS]  Windows Hotfix KB4012598 is expected not to be installed
+     [PASS]  Windows Hotfix KB4042895 is expected not to be installed
+     [PASS]  Windows Hotfix KB4041693 is expected not to be installed
+  [PASS]  PACKAGE INSTALLED _ TELNET and CHROME: This test checks that a package is installed
+     [PASS]  System Package telnetd is expected not to be installed
+     [PASS]  System Package Google Chrome is expected to be installed
+  [PASS]  SERVICE INSTALLED: This test checks the service is installed
+     [PASS]  Service DHCP Client is expected to be installed
+     [PASS]  Service DHCP Client is expected to be running
+
+
+Profile Summary: 4 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 10 successful, 0 failures, 0 skipped
+```
+  
+### Step 8: Checking HTTP and HTTPS
 Use the InSpec Port resource to test HTTP and HTTPS
 
-```bash
+```ruby
 control 'HTTP AND HTTPS' do
   impact 0.8
   title 'This test checks the HTTP and HTTPS protocols'
@@ -328,17 +353,47 @@ control 'HTTP AND HTTPS' do
   end
 end
 ```
-
+  
 To execute this using InSpec, run the following command
 
 ```bash
 inspec exec . --json-config inspec.json
 ```
-![Windows Version](/images/7http.png)
-
-####  You can also do Ranges
-
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
 ```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [FAIL]  HTTP AND HTTPS: This test checks the HTTP and HTTPS protocols (4 failed)
+     [PASS]  Port 80 is expected not to be listening
+     [PASS]  Port 80 protocols is expected not to cmp == "tcp6"
+     [PASS]  Port 80 protocols is expected not to include "icmp"
+     [PASS]  Port 80 protocols is expected not to include "tcp"
+     [PASS]  Port 80 protocols is expected not to include "udp"
+     [PASS]  Port 80 protocols is expected not to include "udp6"
+     [PASS]  Port 80 addresses is expected not to include "0.0.0.0"
+     [FAIL]  Port 443 is expected to be listening
+     expected `Port 443.listening?` to return true, got false
+     [PASS]  Port 443 protocols is expected not to cmp == "tcp6"
+     [PASS]  Port 443 protocols is expected not to include "icmp"
+     [FAIL]  Port 443 protocols is expected to include "tcp"
+     expected [] to include "tcp"
+     [FAIL]  Port 443 protocols is expected to include "udp"
+     expected [] to include "udp"
+     [PASS]  Port 443 protocols is expected not to include "udp6"
+     [FAIL]  Port 443 addresses is expected to include "0.0.0.0"
+     expected [] to include "0.0.0.0"
+
+
+Profile Summary: 4 successful controls, 1 control failure, 0 controls skipped
+Test Summary: 20 successful, 4 failures, 0 skipped
+```
+  
+### Step 9:  You can also do Ranges
+
+```ruby
 control 'PORT RANGE' do
   impact 0.8
   title 'This test checks the ports in a range'
@@ -356,12 +411,36 @@ control 'PORT RANGE' do
   end
 end
   ```
-  
-
-### Step 8: Check Windows Tasks
-Use the windows_task InSpec resource to check the state of tasks.
+    
+To execute this using InSpec, run the following command
 
 ```bash
+inspec exec . --json-config inspec.json
+```
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
+
+  [FAIL]  PORT RANGE: This test checks the ports in a range (2 failed)
+     [PASS]  Port  with port > 0 port < 21 is expected not to be listening
+     [FAIL]  Port  with port > 21 port < 80 is expected not to be listening
+     expected `Port  with port > 21 port < 80.listening?` to return false, got true
+     [FAIL]  Port  with port > 80 port < 443 is expected not to be listening
+     expected `Port  with port > 80 port < 443.listening?` to return false, got true
+
+
+Profile Summary: 4 successful controls, 2 control failures, 0 controls skipped
+Test Summary: 21 successful, 6 failures, 0 skipped
+```
+  
+
+### Step 10: Check Windows Tasks
+Use the windows_task InSpec resource to check the state of tasks.
+
+```ruby
 control 'WINDOWS TASKS' do
   impact 0.8
   title 'This test checks the Windows Tasks'
@@ -382,21 +461,39 @@ control 'WINDOWS TASKS' do
   end
 end
 ```
-
+  
 To execute this using InSpec, run the following command
 
 ```bash
 inspec exec . --json-config inspec.json
 ```
-![Windows Version](/images/8task.png)
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
 
-### Step 9: CIS Example Profile
+  [PASS]  WINDOWS TASKS: This test checks the Windows Tasks
+     [PASS]  Windows Task '\Microsoft\Windows\AppID\PolicyConverter' is expected to be disabled
+     [PASS]  Windows Task '\Microsoft\Windows\AppID\PolicyConverter' logon_mode is expected to eq "Interactive/Background"
+     [PASS]  Windows Task '\Microsoft\Windows\AppID\PolicyConverter' last_result is expected to eq "267011"
+     [PASS]  Windows Task '\Microsoft\Windows\AppID\PolicyConverter' task_to_run is expected to cmp == "%Windir%\\system32\\appidpolicyconverter.exe"
+     [PASS]  Windows Task '\Microsoft\Windows\AppID\PolicyConverter' run_as_user is expected to eq "SYSTEM"
+     [PASS]  Windows Task '\Microsoft\Windows\Defrag\ScheduledDefrag' is expected to exist
+
+
+Profile Summary: 5 successful controls, 2 control failures, 0 controls skipped
+Test Summary: 27 successful, 6 failures, 0 skipped
+```
+  
+### Step 11: CIS Example Profile
 Compliance of the OS settings on the windows client
 - Check and verify Group Policy Settings (GPO) with reference to CIS Windows 10 1703 benchmark is begin applied
 - When new monthly Windows security patch is applied to the current image, to check if the new patches is successfully applied. Where possible, show the status BEFORE and AFTER the patch for comparison and highlight any errors etc.
 
 
-```bash
+```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_18.8.18.3_L1_Ensure_Configure_registry_policy_processing_Process_even_if_the_Group_Policy_objects_have_not_changed_is_set_to_Enabled_TRUE" do
   title "(L1) Ensure 'Configure registry policy processing: Process even if the Group Policy objects have not changed' is set to 'Enabled: TRUE'"
   desc  "The \"Process even if the Group Policy objects have not changed\" option updates and reapplies policies even if the policies have not changed."
@@ -418,14 +515,33 @@ control "xccdf_org.cisecurity.benchmarks_rule_18.8.18.4_L1_Ensure_Turn_off_backg
   end
 end
 ```
-
+  
 To execute this using InSpec, run the following command
 
 ```bash
 inspec exec . --json-config inspec.json
 ```
-![Windows Version](/images/9cis.png)
+  
+Your output will be in the Chef Automate UI and on the STDOUT as follows:
+```bash
+Profile: InSpec Profile (windows-example)
+Version: 0.1.0
+Target:  local://
 
+xccdf_org.cisecurity.benchmarks_rule_18.8.18.3_L1_Ensure_Configure_registry_policy_processing_Process_even_if_the_Group_Policy_objects_have_not_changed_is_set_to_Enabled_TRUE: (L1) Ensure 'Configure registry policy processing: Process even if the Group Policy objects have not changed' is set to 'Enabled: TRUE'
+     [PASS]  Registry Key HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2} is expected not to have property "NoGPOListChanges"
+     [PASS]  Registry Key HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2} NoGPOListChanges is expected not to cmp == 0
+  [PASS]  xccdf_org.cisecurity.benchmarks_rule_18.8.18.4_L1_Ensure_Turn_off_background_refresh_of_Group_Policy_is_set_to_Disabled: (L1) Ensure 'Turn off background refresh of Group Policy' is set to 'Disabled'
+     [PASS]  Registry Key HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System is expected not to have property "DisableBkGndGroupPolicy"
+
+
+Profile Summary: 7 successful controls, 2 control failures, 0 controls skipped
+Test Summary: 30 successful, 6 failures, 0 skipped
+```
+  
+Your report will also appear under the `compliance` tab
+
+![A2 Reporter](/labs/images/win_reporter2.png)
 
   
   
