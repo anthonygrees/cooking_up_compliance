@@ -2,15 +2,13 @@
 # Cooking Up Compliance - Workshop
   
 **Chef Events - Secure your Cloud with Chef Compliance for AWS, Azure and GCP**
-
-Come join us at the Secure your Cloud with Chef Compliance! This uniquely practical workshop is a great opportunity to learn the best ways to automate your security compliance.
-
-We are running 3 workshops, each focused on a different cloud provider. During each virtual workshop, Chef experts will teach practitioners how to:
-
-- Remote scan many of your environments to CIS and STIG standards  
-- Detect and correct security issues across your infrastructure  
-- Automate security compliance to eliminate risk and deliver software that is secure and compliant by design  
-
+  
+This course is designed to accelerate you from zero to hero into the world of DevOps from the perspective of using Chef Configuration Management and Test Driven Development with InSpec. It is also the lead-in to learning Habitat.
+  
+Through this two-day command-line driven adventure, you will develop a solid foundation for managing dozens, hundreds or even thousands of servers the way Facebook, Target, Nordstrom, and many other successful companies do – by using Chef.
+  
+Instructions for students attending Day 1 Chef Infra training and Day 2 training for Compliance on Chef Automate.
+  
 This is a hands on workshop and you will require:  
  - Internet connectivity
  - [Microsoft Remote Desktop](https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-clients) installed on your laptop to access the Chef Windows Workstation  
