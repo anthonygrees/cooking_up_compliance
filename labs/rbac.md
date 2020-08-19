@@ -30,10 +30,13 @@ As an Admin user in Chef Automate, go to the ```settings``` tab and  perform the
 
 ```Projects```
 1. Create a Project called `agency-1-project`
-2. Create a Project called `agency-2-project`
 Under the projects, create ```Rules```
 1. In the Project create a Rule for Nodes
 2. Rule = PolicyGroup = `agency-1`
+1. Create a Project called `agency-2-project`
+Under the projects, create ```Rules```
+1. In the Project create a Rule for Nodes
+2. Rule = PolicyGroup = `agency-2`
   
 ![RBAC Projects](/labs/images/rbac_project.png "RBAC Projects")
   
