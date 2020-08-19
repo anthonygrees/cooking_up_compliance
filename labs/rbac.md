@@ -10,7 +10,7 @@ The Multi Tenant example below shows a Government Organisation with two Governme
  - `Agency-1 User` can only see their own VM's and the Complaince Reports for their own Agency
  - `Agency-2 User` can only see their own VM's and the Complaince Reports for their own Agency
   
-Projects (Tenants) can filter policy triggers for Events and Nodes based on:
+Projects (Tenants) can filter policy triggers for Events and Nodes based on:  
 `Events`
  - Chef Organization
  - Chef Server
