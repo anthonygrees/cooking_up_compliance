@@ -1,6 +1,6 @@
+# InSpec on Linux
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
-## InSpec on Linux
 InSpec is an open-source testing framework for infrastructure with a human and machine-readable language for specifying compliance, security and policy requirements.
 
 Don't have InSpec installed?  Here you go - https://downloads.chef.io/inspec
