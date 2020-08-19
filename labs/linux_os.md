@@ -229,9 +229,9 @@ Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
 Test Summary: 2 successful, 0 failures, 0 skipped
 ```
   
-![Linux](/lab/images/linux_reporter1.png)
+![Linux](/labs/images/linux_reporter1.png)
   
-### Step 7: Ensure FTP Server is not enabled
+### Step 6: Ensure FTP Server is not enabled
 
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabled" do
@@ -247,14 +247,33 @@ control "xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabl
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![FTP](/images/l7.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec . --json-config reporter.json
 
-### Step 8: Ensure shadow group is empty
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
+
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabled: Ensure FTP Server is not enabled
+     ✔  Bash command initctl show-config vsftpd | egrep "^ *start" exit_status is expected not to eq 0
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
+  
+### Step 7: Ensure shadow group is empty
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_13.20_Ensure_shadow_group_is_empty" do
   title "Ensure shadow group is empty"
@@ -272,14 +291,33 @@ control "xccdf_org.cisecurity.benchmarks_rule_13.20_Ensure_shadow_group_is_empty
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Shadow](/images/l8.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec . --json-config reporter.json
 
-### Step 9: Ensure tftp-server is not enabled
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
+
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabled: Ensure FTP Server is not enabled
+     ✔  Bash command initctl show-config vsftpd | egrep "^ *start" exit_status is expected not to eq 0
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
+  
+### Step 8: Ensure tftp-server is not enabled
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_5.1.7_Ensure_tftp-server_is_not_enabled" do
   title "Ensure tftp-server is not enabled"
@@ -294,14 +332,38 @@ control "xccdf_org.cisecurity.benchmarks_rule_5.1.7_Ensure_tftp-server_is_not_en
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![tFTP](/images/l9.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec . --json-config reporter.json
 
-### Step 10: Ensure DHCP Server is not enabled
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
+
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabled: Ensure FTP Server is not enabled
+     ✔  Bash command initctl show-config vsftpd | egrep "^ *start" exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_13.20_Ensure_shadow_group_is_empty: Ensure shadow group is empty
+     ✔  File /etc/group content is expected not to match /^shadow:x:15:.+$/
+     ✔  Bash command awk -F: '($4 == "42") { print }' /etc/passwd stdout is expected not to match /.+/
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.7_Ensure_tftp-server_is_not_enabled: Ensure tftp-server is not enabled
+     ✔  Bash command egrep "^tftp" /etc/inetd.conf exit_status is expected not to eq 0
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 4 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 6 successful, 0 failures, 0 skipped
+```
+  
+### Step 9: Ensure DHCP Server is not enabled
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_6.4_Ensure_DHCP_Server_is_not_enabled" do
   title "Ensure DHCP Server is not enabled"
@@ -319,14 +381,39 @@ control "xccdf_org.cisecurity.benchmarks_rule_6.4_Ensure_DHCP_Server_is_not_enab
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![DHCP](/images/l10.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
 
-### Step 11: Set Password Creation Requirement Parameters
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.9_Ensure_FTP_Server_is_not_enabled: Ensure FTP Server is not enabled
+     ✔  Bash command initctl show-config vsftpd | egrep "^ *start" exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_13.20_Ensure_shadow_group_is_empty: Ensure shadow group is empty
+     ✔  File /etc/group content is expected not to match /^shadow:x:15:.+$/
+     ✔  Bash command awk -F: '($4 == "42") { print }' /etc/passwd stdout is expected not to match /.+/
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.7_Ensure_tftp-server_is_not_enabled: Ensure tftp-server is not enabled
+     ✔  Bash command egrep "^tftp" /etc/inetd.conf exit_status is expected not to eq 0
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.4_Ensure_DHCP_Server_is_not_enabled: Ensure DHCP Server is not enabled
+     ✔  Bash command initctl show-config isc-dhcp-server | egrep "^ start" exit_status is expected not to eq 0
+     ✔  Bash command initctl show-config isc-dhcp-server6 | egrep "^ start" exit_status is expected not to eq 0
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 5 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 8 successful, 0 failures, 0 skipped
+```
+  
+### Step 10: Set Password Creation Requirement Parameters
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_9.2.1_Set_Password_Creation_Requirement_Parameters_Using_pam_cracklib" do
   title "Set Password Creation Requirement Parameters Using pam_cracklib"
@@ -366,12 +453,15 @@ end
 ```
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Pass](/images/l11.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
 
-### Step 12: Set Password Expiration Days
+```
+  
+### Step 11: Set Password Expiration Days
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_10.1.1_Set_Password_Expiration_Days" do
   title "Set Password Expiration Days"
@@ -386,14 +476,18 @@ control "xccdf_org.cisecurity.benchmarks_rule_10.1.1_Set_Password_Expiration_Day
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Expire](/images/l12.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
 
-### Step 13: Lock Inactive User Accounts
+```
+  
+### Step 12: Lock Inactive User Accounts
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_10.5_Lock_Inactive_User_Accounts" do
   title "Lock Inactive User Accounts"
@@ -408,14 +502,18 @@ control "xccdf_org.cisecurity.benchmarks_rule_10.5_Lock_Inactive_User_Accounts" 
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Lock](/images/l13.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
 
-### Step 14: Check Permissions on User Home Directories
+```
+  
+### Step 13: Check Permissions on User Home Directories
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_13.7_Check_Permissions_on_User_Home_Directories" do
   title "Check Permissions on User Home Directories"
@@ -430,36 +528,16 @@ control "xccdf_org.cisecurity.benchmarks_rule_13.7_Check_Permissions_on_User_Hom
   end
 end
 ```
+  
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Permissions](/images/l14.png)
-
-
---------------------
-## UUID Error
-If you get a node uuid error, then create a file called ```inspec.json```
+  
+You will see an output in Chef Automate and on the STDOUT as follows: 
+```bash
 
 ```
-{
-    "reporter": {
-        "cli" : {
-            "stdout" : true,
-            "node_uuid" : "<yourname>-1234"
-        }
-    }
-}
-```
-
-And execute with the following command
-
-```inspec exec . -t ssh://centos@99.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json```
-
-Otherwise you can create a UUID for InSpec when you create your node:
-```
-file '/etc/machine-id' do
-  content '12345678-1234-1234-1234-123456789012'
-end
-```
+  
+  
+  
