@@ -33,7 +33,7 @@ The following is the lab material:
 | 8. | [Scan GCP with InSpec](labs/gcp_cloud.md)|
 |    | |
 |    | **Other Chef Automate Training** |
-| 6. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
+| 9. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
   
   
   
