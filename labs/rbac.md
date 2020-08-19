@@ -67,9 +67,18 @@ Click `Update Projects` to apply the changes
 2. Add a Team as a member of the policy- Add team `agency-2-team`
 ![RBAC Policy](/labs/images/rbac_policy.png "RBAC Policy")
   
+  
 ### Government Admin User
 The Government Admin User can see ALL VM's and Compliance Reports and can filter based on Agency.
   
 ![RBAC Admin](/labs/images/rbac_admin.png "RBAC Admin")
+  
+  
+### Agency User
+The Government Agency 1 User can ONLY see their own VM's and Compliance Reports.  They cannot see other Agencies or any VM's that are untagged or unassiged. 
+  
+![RBAC User](/labs/images/rbac_user.png "RBAC User")
+  
+  
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
