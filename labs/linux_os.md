@@ -47,77 +47,92 @@ Run the following command to check your InSpec version.
 ```bash
 $ inspec --version
 ```
-![InSpec Version](/images/1inspecversion.png)
-
+  
+You will see an output as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 inspec-labs]$ inspec --version
+4.22.8
+[ec2-user@ip-172-31-54-152 inspec-labs]$ 
+```
+  
 ### Step 2: Determine your platform
-Use the InSpec ```detect``` command to check the platform you are running on.  Replace the ```999.999.999.999``` with the IP address given to you by the instructor.
+Use the InSpec ```detect``` command to check the platform you are running on.  You will need to type ```yes``` to accept the Chef License.
 ```bash
-inspec detect -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa
+inspec detect
 ```
-or
-```
-inspec detect -t ssh://centos@ec2-54-190-15-224.us-west-2.compute.amazonaws.com -i C:\Users\chef\.ssh\id_rsa
-```
-![Platform](/images/l1.png)
-
-### Step 3: Let's look at InSpec Shell
-It's a pry-based Read–Eval–Print Loop that can be used to quickly run InSpec controls and tests without having to write it to a file. Its functionality is similar to ```chef-shell```.
-
-We'll start by connecting to the shell with our key and transport information, and then play around in the shell for a bit and write our first test.
+  
+You will see an output as follows:  
 ```bash
-$ inspec help shell
-$ inspec shell -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa
+[ec2-user@ip-172-31-54-152 inspec-labs]$ inspec detect
++---------------------------------------------+
+            Chef License Acceptance
 
-inspec> help
-inspec> help resources
-inspec> help sshd_config
-inspec> sshd_config.params
-inspec> sshd_config.port
-inspec> sshd_config.Protocol
-inspec> help matchers
-```
-Ok.  Now try writing a control based test.
-```ruby
-inspec> describe sshd_config do
-inspec> its('Protocol') { should eq '2' }
-inspec> end
-```
-![Shell](/images/l2.png)
+Before you can continue, 1 product license
+must be accepted. View the license at
+https://www.chef.io/end-user-license-agreement/
 
-Type ```exit``` to leave the shell.
-```ruby
-inspec> exit
-```
+License that need accepting:
+  * Chef InSpec
 
-### Step 4: Check for insecure protocol
+Do you accept the 1 product license (yes/no)?
+
+> yes
+
+Persisting 1 product license...
+✔ 1 product license persisted.
+
++---------------------------------------------+
+
+ ────────────────────────────── Platform Details ────────────────────────────── 
+
+Name:      redhat
+Families:  redhat, linux, unix, os
+Release:   7.8
+Arch:      x86_64
+[ec2-user@ip-172-31-54-152 inspec-labs]$ 
+```
+  
+### Step 3: Check for insecure protocol
 Now, create a new InSpec profile
 ```bash
 ## Create a New InSpec Profile
-$ inspec init profile <your_profile_name>
-
+inspec init profile linux-example --platform=os
+  
 ## Change Directory into your new Profile
-$ cd <your_profile_name>
-
+$ cd linux-example
+  
 ## Write your Controls in the example.rb
-$ code controls\example.rb
+controls\example.rb
 ```
 Add the following code to your ```controls\example.rb```
 ```ruby
 # Disallow insecure protocols by testing
-
+  
 describe package('telnetd') do
   it { should_not be_installed }
 end
 ```
-
+  
 InSpec makes it easy to run your tests wherever you need.
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa
+inspec exec . 
 ```
-![Telnet](/images/l3.png)
+  
+You will see an output as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec .
 
-### Step 5: Ensure telnet server is not enabled
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Test Summary: 1 successful, 0 failures, 0 skipped
+```
+  
+### Step 4: Ensure telnet server is not enabled
 Add the following InSpec check for telnet.
 ```ruby
 control "xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled" do
@@ -135,39 +150,87 @@ end
 ```
 You can run your test with the following command
 ```bash
-# run test on remote host on SSH
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa
+inspec exec .
 ```
-![Telnet Enabled](/images/l4.png)
+  
+  
+You will see an output as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec .
 
-### Step 6: Report in Chef Automate
-Create a file called ```inspec.json``` in <your_profile_name> directory and add the following:
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
 
-Note: Remember to update the ```json``` and put your name in ```"node_name" : "<YOUR_NAME_HERE>"``` and add your ```TOKEN``` from the spreadsheet.
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
 
-```json
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
+Test Summary: 2 successful, 0 failures, 0 skipped
+```
+  
+### Step 5: Report in Chef Automate
+1. You will need to create a UUID for your Linux scan, run `uuidgen` in your terminal.    
+     
+  You will see output as follows:
+  ```bash
+    [ec2-user@ip-172-31-54-168 aws]$ uuidgen
+    c6754ceb-b9a8-4917-a797-c0d0589246d6
+      
+```
+
+2. Next you need to create a `reporter.json` file like this in the `linux-example` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by either:  
+   - right clicking on the `aws` directory or   
+   - in the terminal type `touch reporter.json`  
+  
+``` json
 {
-    "reporter" : {
-        "automate" : {
-            "stdout" : "false",
-            "url" : "https://anthony-a2.chef-demo.com/data-collector/v0",
-            "token" : "w-rPchmGDbqbYkDWzhflw8bAvYs=",
-            "insecure" : true,
-            "node_name" : "<YOUR_NAME_HERE>",
-            "node_uuid" : "12345678-1234-1234-1234-123456789012",
-            "environment" : "dev"
-        }
+  "reporter": {
+    "automate" : {
+      "stdout" : false,
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
+      "token" : "<Chef Automate Token>",
+      "insecure" : true,
+      "node_name" : "YourName-Linux-Demo",
+      "environment" : "linux-example",
+      "node_uuid" : "<uuidgen>"
+    },
+    "cli" : {
+      "stdout" : true
     }
+  }
 }
 ```
 
 To execute this using InSpec and report to A2 run the following command
 
 ```bash
-$ inspec exec . -t ssh://ubuntu@999.999.999.999 -i C:\Users\chef\.ssh\id_rsa --json-config inspec.json
+inspec exec . --json-config reporter.json
 ```
-![Report](/images/l6.png)
+  
+You will see an output in Chef Automate and on the STDOUT as follows:  
+```bash
+[ec2-user@ip-172-31-54-152 linux-example]$ inspec exec . --json-config reporter.json
 
+Profile: InSpec Profile (linux-example)
+Version: 0.1.0
+Target:  local://
+
+  ✔  xccdf_org.cisecurity.benchmarks_rule_5.1.6_Ensure_telnet_server_is_not_enabled: Ensure telnet server is not enabled
+     ✔  Bash command egrep "^telnet" /etc/inetd.conf exit_status is expected not to eq 0
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
+Test Summary: 2 successful, 0 failures, 0 skipped
+```
+  
+![Linux](/lab/images/linux_reporter1.png)
+  
 ### Step 7: Ensure FTP Server is not enabled
 
 ```ruby
