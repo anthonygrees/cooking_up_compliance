@@ -659,7 +659,7 @@ The Centre for Internet Security produces a CIS CentOS, SUSE, Ubuntu and RHEL Be
 Chef has implemented those benchmarks uisng InSpec. We are now going to obtain that benchmark from Chef Automate and execute it against the AWS cloud. 
 
 1. Login to Chef Automate via the terminal:  
-`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com`   
+  `inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com`   
    
   For example:  
   `inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`  
@@ -671,7 +671,7 @@ Chef has implemented those benchmarks uisng InSpec. We are now going to obtain t
   
   
 3. Next lets execute that profile against the AWS API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run, some will emit a warning as the IAM role I am using does not have all of the required permissions, you can ignore these warnings:   
-`inspec exec compliance://workstation-<x>/cis-rhel7-level1-server --config=reporter.json` 
+  `inspec exec compliance://workstation-<x>/cis-rhel7-level1-server --config=reporter.json` 
   
   Your output will be as follows:  
   ```bash
@@ -685,8 +685,8 @@ Chef has implemented those benchmarks uisng InSpec. We are now going to obtain t
      ✔  /etc/group groups is expected not to contain duplicates
 
 
-Profile Summary: 89 successful controls, 65 control failures, 34 controls skipped
-Test Summary: 623 successful, 190 failures, 37 skipped
+  Profile Summary: 89 successful controls, 65 control failures, 34 controls skipped
+  Test Summary: 623 successful, 190 failures, 37 skipped
   ```
   
 4. Look at the scan results in the Chef Automate browser:   
