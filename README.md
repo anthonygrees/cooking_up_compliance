@@ -31,6 +31,9 @@ The following is the lab material:
 | 6. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
 | 7. | [Scan Azure with InSpec](labs/azure_cloud.md)|
 | 8. | [Scan GCP with InSpec](labs/gcp_cloud.md)|
+|    | |
+|    | **Other Chef Automate Training** |
+| 6. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
   
   
   
