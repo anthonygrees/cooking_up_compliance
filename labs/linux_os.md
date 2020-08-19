@@ -458,7 +458,28 @@ inspec exec . --json-config reporter.json
   
 You will see an output in Chef Automate and on the STDOUT as follows: 
 ```bash
+  ×  xccdf_org.cisecurity.benchmarks_rule_9.2.1_Set_Password_Creation_Requirement_Parameters_Using_pam_cracklib: Set Password Creation Requirement Parameters Using pam_cracklib (6 failed)
+     ×  Bash command egrep -v "^[[:space:]]#" /etc/pam.d/common-password | egrep "pam_cracklib.so" | sed -e 's/#.//' | tr -s '   ' '
+     ' | awk -F = '/^retry/ { if ($2 <= 3) print $2 }' stdout is expected to match /.+/
+     expected "" to match /.+/
+     Diff:
+     @@ -1 +1 @@
+     -/.+/
+     +""
+     ×  Bash command egrep -v "^[[:space:]]#" /etc/pam.d/common-password | egrep "pam_cracklib.so" | sed -e 's/#.//' | tr -s '   ' '
+     ' | awk -F = '/^ocredit/ { if ($2 <= -1) print $2 }' stdout is expected to match /.+/
+     expected "" to match /.+/
+     Diff:
+     @@ -1 +1 @@
+     -/.+/
+     +""
 
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 5 successful controls, 1 control failure, 0 controls skipped
+Test Summary: 8 successful, 6 failures, 0 skipped
 ```
   
 ### Step 11: Set Password Expiration Days
@@ -484,7 +505,83 @@ inspec exec . --json-config reporter.json
   
 You will see an output in Chef Automate and on the STDOUT as follows: 
 ```bash
-
+×  xccdf_org.cisecurity.benchmarks_rule_10.1.1_Set_Password_Expiration_Days: Set Password Expiration Days
+     ×  File /etc/login.defs content is expected to match /^\s*PASS_MAX_DAYS\s+90/
+     expected "#\n# Please note that the parameters in this configuration file control the\n# behavior of the tools...bers exist.\n#\nUSERGROUPS_ENAB yes\n\n# Use SHA512 to encrypt password.\nENCRYPT_METHOD SHA512\n\n" to match /^\s*PASS_MAX_DAYS\s+90/
+     Diff:
+     @@ -1,71 +1,141 @@
+     -/^\s*PASS_MAX_DAYS\s+90/
+     +#
+     +# Please note that the parameters in this configuration file control the
+     +# behavior of the tools from the shadow-utils component. None of these
+     +# tools uses the PAM mechanism, and the utilities that use PAM (such as the
+     +# passwd command) should therefore be configured elsewhere. Refer to
+     +# /etc/pam.d/system-auth for more information.
+     +#
+     +
+     +# *REQUIRED*
+     +#   Directory where mailboxes reside, _or_ name of file, relative to the
+     +#   home directory.  If you _do_ define both, MAIL_DIR takes precedence.
+     +#   QMAIL_DIR is for Qmail
+     +#
+     +#QMAIL_DIR        Maildir
+     +MAIL_DIR  /var/spool/mail
+     +#MAIL_FILE        .mail
+     +
+     +# Password aging controls:
+     +#
+     +# PASS_MAX_DAYS   Maximum number of days a password may be used.
+     +# PASS_MIN_DAYS   Minimum number of days allowed between password changes.
+     +# PASS_MIN_LEN    Minimum acceptable password length.
+     +# PASS_WARN_AGE   Number of days warning given before a password expires.
+     +#
+     +PASS_MAX_DAYS     99999
+     +PASS_MIN_DAYS     0
+     +PASS_MIN_LEN      5
+     +PASS_WARN_AGE     7
+     +
+     +#
+     +# Min/max values for automatic uid selection in useradd
+     +#
+     +UID_MIN                  1000
+     +UID_MAX                 60000
+     +# System accounts
+     +SYS_UID_MIN               201
+     +SYS_UID_MAX               999
+     +
+     +#
+     +# Min/max values for automatic gid selection in groupadd
+     +#
+     +GID_MIN                  1000
+     +GID_MAX                 60000
+     +# System accounts
+     +SYS_GID_MIN               201
+     +SYS_GID_MAX               999
+     +
+     +#
+     +# If defined, this command is run when removing a user.
+     +# It should remove any at/cron/print jobs etc. owned by
+     +# the user to be removed (passed as the first argument).
+     +#
+     +#USERDEL_CMD      /usr/sbin/userdel_local
+     +
+     +#
+     +# If useradd should create home directories for users by default
+     +# On RH systems, we do. This option is overridden with the -m flag on
+     +# useradd command line.
+     +#
+     +CREATE_HOME       yes
+     +
+     +# The permission mask is initialized to this value. If not specified, 
+     +# the permission mask will be initialized to 022.
+     +UMASK           077
+     +
+     +# This enables userdel to remove user groups if no members exist.
+     +#
+     +USERGROUPS_ENAB yes
+     +
+     +# Use SHA512 to encrypt password.
+     +ENCRYPT_METHOD SHA512
 ```
   
 ### Step 12: Lock Inactive User Accounts
@@ -510,7 +607,20 @@ inspec exec . --json-config reporter.json
   
 You will see an output in Chef Automate and on the STDOUT as follows: 
 ```bash
+×  xccdf_org.cisecurity.benchmarks_rule_10.5_Lock_Inactive_User_Accounts: Lock Inactive User Accounts
+     ×  Bash command useradd -D | grep INACTIVE stdout is expected to match /^INACTIVE=35$/
+     expected "INACTIVE=-1\n" to match /^INACTIVE=35$/
+     Diff:
+     @@ -1 +1 @@
+     -/^INACTIVE=35$/
+     +INACTIVE=-1
 
+
+  System Package telnetd
+     ✔  is expected not to be installed
+
+Profile Summary: 5 successful controls, 3 control failures, 0 controls skipped
+Test Summary: 8 successful, 8 failures, 0 skipped
 ```
   
 ### Step 13: Check Permissions on User Home Directories
@@ -536,6 +646,8 @@ inspec exec . --json-config reporter.json
   
 You will see an output in Chef Automate and on the STDOUT as follows: 
 ```bash
+✔  xccdf_org.cisecurity.benchmarks_rule_13.7_Check_Permissions_on_User_Home_Directories: Check Permissions on User Home Directories
+     ✔  Bash command for i in $(awk -F: '($7 != "/usr/sbin/nologin" && $3 >= 500) {print $6}' /etc/passwd | sort -u); do echo $i $(stat -L --format=%a $i) | grep -v ' .[0145][0145]$';done stdout is expected not to match /.+/
 
 ```
   
