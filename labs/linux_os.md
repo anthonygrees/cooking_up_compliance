@@ -1,3 +1,5 @@
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+  
 ## InSpec on Linux
 InSpec is an open-source testing framework for infrastructure with a human and machine-readable language for specifying compliance, security and policy requirements.
 
@@ -651,5 +653,45 @@ You will see an output in Chef Automate and on the STDOUT as follows:
 
 ```
   
+ ### 14. Center For Internet Security (CIS) Profile execution
+The Centre for Internet Security produces a CIS CentOS, SUSE, Ubuntu and RHEL Benchmark.  
   
+Chef has implemented those benchmarks uisng InSpec. We are now going to obtain that benchmark from Chef Automate and execute it against the AWS cloud. 
+
+1. Login to Chef Automate via the terminal:  
+`inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com`   
+   
+  For example:  
+  `inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com`  
+  ```
+  Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'  
+  ```
+  
+2. Open the Chrome Browser and in Chef Automate, go to the `Compliance` menu tab, then the `Profiles` tab on the left, see that the `CIS Red Hat Enterprise Linux 7 Benchmark Level 1 - Server` profile is available to your `workstation-x` user.  
+  
+  
+3. Next lets execute that profile against the AWS API (replace `<x>` with your workstation number) - the tests will take about 4 minutes to run, some will emit a warning as the IAM role I am using does not have all of the required permissions, you can ignore these warnings:   
+`inspec exec compliance://workstation-<x>/cis-rhel7-level1-server --config=reporter.json` 
+  
+  Your output will be as follows:  
+  ```bash
+ ✔  xccdf_org.cisecurity.benchmarks_rule_6.2.16_Ensure_no_duplicate_UIDs_exist: Ensure no duplicate UIDs exist
+     ✔  /etc/passwd uids is expected not to contain duplicates
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.2.17_Ensure_no_duplicate_GIDs_exist: Ensure no duplicate GIDs exist
+     ✔  /etc/group gids is expected not to contain duplicates
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.2.18_Ensure_no_duplicate_user_names_exist: Ensure no duplicate user names exist
+     ✔  /etc/passwd users is expected not to contain duplicates
+  ✔  xccdf_org.cisecurity.benchmarks_rule_6.2.19_Ensure_no_duplicate_group_names_exist: Ensure no duplicate group names exist
+     ✔  /etc/group groups is expected not to contain duplicates
+
+
+Profile Summary: 89 successful controls, 65 control failures, 34 controls skipped
+Test Summary: 623 successful, 190 failures, 37 skipped
+  ```
+  
+4. Look at the scan results in the Chef Automate browser:   
+![CIS RHEL Scan Results](/labs/images/linux_cis.png)
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
