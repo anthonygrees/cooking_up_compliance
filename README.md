@@ -16,24 +16,25 @@ This is a hands on workshop and you will require:
 The following is the lab material:
 | Item | Course  | 
 | :---: |:-------------| 
-|    | **Chef Architecture Overview** |
-| 1. | [Chef High Level Architecture](labs/architecture.md) |
-|    | |
-|    | **InSpec Introduction** |
-| 2. | [InSpec Profiles](labs/intro_profiles.md) |
-| 3. | [InSpec Resources and Matchers](labs/intro_resources.md) |
-|    | |
-|    | **InSpec Hands On Labs - Operating Systems** |
-| 4. | [Scan Windows OS with InSpec](labs/windows_os.md) |
-| 5. | [Scan Linux OS with InSpec](labs/linux_os.md) |
-|    | |
-|    | **InSpec Hands On Labs - Cloud** |
-| 6. | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
-| 7. | [Scan Azure with InSpec](labs/azure_cloud.md)|
-| 8. | [Scan GCP with InSpec](labs/gcp_cloud.md)|
-|    | |
-|    | **Other Chef Automate Training** |
-| 9. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
+|     | **Chef Architecture Overview** |
+| 1.  | [Chef High Level Architecture](labs/architecture.md) |
+|     | |
+|     | **InSpec Introduction** |
+| 2.  | [InSpec Profiles](labs/intro_profiles.md) |
+| 3.  | [InSpec Resources and Matchers](labs/intro_resources.md) |
+|     | |
+|     | **InSpec Hands On Labs - Operating Systems** |
+| 4.  | [Scan Windows OS with InSpec](labs/windows_os.md) |
+| 5.  | [Scan Linux OS with InSpec](labs/linux_os.md) |
+|     | |
+|     | **InSpec Hands On Labs - Cloud** |
+| 6.  | [Scan AWS Cloud with InSpec](labs/aws_cloud.md) |
+| 7.  | [Scan Azure with InSpec](labs/azure_cloud.md)|
+| 8.  | [Scan GCP with InSpec](labs/gcp_cloud.md)|
+|     | |
+|     | **Other Chef Automate Training** |
+| 9.  | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
+| 10. | [Chef Essentials - Helpful Links](labs/essentials.md) |
   
   
   
