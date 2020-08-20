@@ -1,5 +1,6 @@
 ## Chef Essentials
-![Chef Infra](/images/ChefInfra.png)
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
 ### Student Slides
 The slides used in this workshop cen be found here in a PDF format.
@@ -239,3 +240,7 @@ Other Chef and Community Drivers:
 3. [Chef Style DevOps Kungfu](https://www.youtube.com/watch?v=_DEToXsgrPc) - Adam Jacob Keynote - ChefConf 2015
 4. [Eggs 365](https://www.youtube.com/watch?v=XD0vRW4G82U&t=2s) - ChefConf 2015: How is your Continuous Delivery Kung Fu?
 5. [DevOps: No Horse Sh**](https://www.youtube.com/watch?v=0P0HD5pE-zU) - Original (language warning) - ChefConf 2014: Nathen Harvey knows DevOps, not farming. In this video, Nathen and his feathered and hooved friends explain how DevOps is (and isn't) like a closed-loop farm. 
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+  
