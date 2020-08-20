@@ -34,8 +34,8 @@ The following is the lab material:
 |     | |
 |     | **Other Chef Automate Training** |
 | 9.  | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
-| 10. | [Chef Essentials - Helpful Links](labs/essentials.md) |
-| 11. | [Chef Policyfiles](https://github.com/anthonygrees/policyfiles_training) |
+| 10. | [Chef Essentials Workshop - Helpful Links](labs/essentials.md) |
+| 11. | [Chef Policyfiles Workshop](https://github.com/anthonygrees/policyfiles_training) |
 | 12. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
   
   
