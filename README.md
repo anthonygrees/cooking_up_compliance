@@ -20,8 +20,8 @@ The following is the lab material:
 | 1.  | [Chef High Level Architecture](labs/architecture.md) |
 |     | |
 |     | **InSpec Introduction** |
-| 2.  | [InSpec Profiles](labs/intro_profiles.md) |
-| 3.  | [InSpec Resources and Matchers](labs/intro_resources.md) |
+| 2.  | [InSpec Profiles - What are they ?](labs/intro_profiles.md) |
+| 3.  | [InSpec Resources and Matchers - How to use them](labs/intro_resources.md) |
 |     | |
 |     | **InSpec Hands On Labs - Operating Systems** |
 | 4.  | [Scan Windows OS with InSpec](labs/windows_os.md) |
