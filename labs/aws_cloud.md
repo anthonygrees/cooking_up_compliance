@@ -1,8 +1,8 @@
 ![AWS Chef](/labs/images/aws.png)
 # Scanning AWS Cloud with InSpec
-
+  
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
-
+  
 ### 1. Configure Your Workstation
 1. Create a remote desktop connection to your Windows workstation  
   - login using `chef` as the username
