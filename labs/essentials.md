@@ -1,4 +1,4 @@
-## Chef Essentials
+# Chef Essentials
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
@@ -17,7 +17,7 @@ The slides used in this workshop cen be found here in a PDF format.
 ### Helpful Links
   
 #### Linux
- - Module 4 - The ```.kitchen.yml``` for the ```Linux webserver cookbook``` 
+ - Linux Module 4 - The ```.kitchen.yml``` for the ```Linux webserver cookbook``` 
    
  ```yaml
  ---
@@ -69,7 +69,7 @@ suites:
     attributes:
  ```
   
- - Module 4 - The ```default_test.rb``` test examples  
+ - Linux Module 4 - The ```default_test.rb``` test examples  
    
  ```ruby
  # # encoding: utf-8
@@ -114,7 +114,7 @@ end
  ```
   
  #### Windows
- - Module 4 - The ```.kitchen.yml``` for the ```Windows webserver cookbook```  
+ - Windows Module 4 - The ```.kitchen.yml``` for the ```Windows webserver cookbook```  
    
  ```yaml
  ---
@@ -168,7 +168,7 @@ suites:
     attributes:
  ```
   
- - Module 4 - The ```default_test.rb``` test examples  
+ - Windows Module 4 - The ```default_test.rb``` test examples  
    
  ```ruby
  # # encoding: utf-8
