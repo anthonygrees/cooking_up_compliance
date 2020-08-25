@@ -69,16 +69,30 @@ Click `Update Projects` to apply the changes
 ![RBAC Policy](/labs/images/rbac_policy.png "RBAC Policy")
   
   
-### Government Admin User
+### User Views
+How does it look from the perspective of a User
+  
+#### Government Admin User - Nodes
 The Government Admin User can see ALL VM's and Compliance Reports and can filter based on Agency.
   
 ![RBAC Admin](/labs/images/rbac_admin.png "RBAC Admin")
   
   
-### Agency User
+#### Agency User - Nodes
 The Government Agency 1 User can ONLY see their own VM's and Compliance Reports.  They cannot see other Agencies or any VM's that are untagged or unassiged. 
   
 ![RBAC User](/labs/images/rbac_user.png "RBAC User")
+  
+  
+#### Agency 1 - Profile
+Agency 1 has their own InSpec Profile.  Only they can see it and use it
+  
+![RBAC User](/labs/images/rbac_profile1.png "RBAC User")
+  
+  
+The profile for Agency 1 cannot be seen by Agency 2 or the Admin Local users
+  
+![RBAC User](/labs/images/rbac_profile2.png "RBAC User")
   
   
   
