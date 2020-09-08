@@ -1,4 +1,4 @@
-![AWS Chef](/labs/images/aws.png)
+![Docker](/labs/images/docker.png)
 # Scanning a Docker Container with InSpec
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
