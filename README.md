@@ -42,13 +42,13 @@ The following is the lab material:
 | 13. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
 |     | |
 |     | **Helpful Resources** |
-| 14. | [Chef and InSpec Resources](labs/resources.md) |
+| 14. | [Chef and InSpec Resources](labs/links.md) |
   
   
   
 ## License and Author
   
-* Author:: [Anthony Rees](anthony@chef.io)
+* Author:: [Anthony Rees](<anthony@chef.io>)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
