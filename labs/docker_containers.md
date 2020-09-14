@@ -154,6 +154,14 @@ Test Summary: 2 successful, 0 failures, 0 skipped
   
 ![Docker](/labs/images/docker1.png "Docker") 
   
+  
+  
+  
+#### Scan a Postgres Docker Container
+  
+```bash
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
 
 
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
