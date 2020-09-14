@@ -11,7 +11,7 @@ The following list of InSpec resources are available for:
  - GCP
  - Habitat
 
-A full list can be found [here](https://www.inspec.io/docs/reference/resources/)
+A full list can be found [here](https://docs.chef.io/inspec/resources/)
   
 
 ### Matchers
