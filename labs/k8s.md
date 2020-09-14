@@ -163,8 +163,8 @@ You will need to create a UUID for your Linux scan, run `uuidgen` in your termin
       
 ```
   
-Next you need to create a `reporter.json` file like this in the `linux-example` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by either:  
-   - right clicking on the `aws` directory or   
+Next you need to create a `reporter.json` file like this in the `kube` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by either:  
+   - right clicking on the `kube` directory or   
    - in the terminal type `touch reporter.json`  
   
 ``` json
