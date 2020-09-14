@@ -32,17 +32,22 @@ The following is the lab material:
 | 7.  | [Scan Azure with InSpec](labs/azure_cloud.md)|
 | 8.  | [Scan GCP with InSpec](labs/gcp_cloud.md)|
 |     | |
-|     | **InSpec Hands On Labs - Containers** |
-| 9.  | [Scan Containers with InSpec](labs/containers.md) |
+|     | **InSpec Hands On Labs - Containers and Kubernetes** |
+| 9.  | [Scan a Docker Container with InSpec](labs/containers.md) |
+| 10. | [Scan the Docker Host with InSpec](labs/docker_host.md) |
+| 11. | [Scan Kubernetes with InSpec](labs/k8s.md) |
+|     | |
+|     | **Chef Essentials Training** |
+| 12. | [Chef Essentials: Windows - Helpful Links](labs/essentials_windows.md) |
+| 13. | [Chef Essentials: Linux - Helpful Links](labs/essentials_linux.md) |
+| 14. | [Chef Policyfiles Workshop](https://github.com/anthonygrees/policyfiles_training) |
 |     | |
 |     | **Other Chef Automate Training** |
-| 10. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
-| 11. | [Chef Essentials Workshop - Helpful Links](labs/essentials.md) |
-| 12. | [Chef Policyfiles Workshop](https://github.com/anthonygrees/policyfiles_training) |
-| 13. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
+| 15. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
+| 16. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
 |     | |
 |     | **Helpful Resources** |
-| 14. | [Chef and InSpec Resources](labs/links.md) |
+| 17. | [Chef and InSpec Resources](labs/links.md) |
   
   
   
