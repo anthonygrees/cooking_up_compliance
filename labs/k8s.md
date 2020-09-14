@@ -292,14 +292,14 @@ Test Summary: 224 successful, 64 failures, 27 skipped
 ```
   
   
-The scan will look like this:
+7. The scan will look like this:
   
 ![k8s](/labs/images/k8s2.png)
   
   
   
   
-The report will look like this:
+8. The report will look like this:
   
 ![k8s](/labs/images/k8s3.png)
   
