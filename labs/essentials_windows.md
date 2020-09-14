@@ -1,4 +1,4 @@
-# Chef Essentials
+# Chef Essentials: Windows
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
