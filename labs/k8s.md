@@ -57,3 +57,5 @@ kubectl get pod my-pod -o yaml                # Get a pod's YAML
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 ```
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
