@@ -230,9 +230,69 @@ is_kubectl_host: true
   
 5. Login to the Chef Automate server
   
-Login to the A2 server to allow compliance profiles to be downloaded.  
+Login to Chef Automate via the terminal:  
+  
 ```bash
-inspec compliance login --insecure --user=delivery --token m6E8BQ5iCWLMBFUpIPRlRhrqR6k= aut-automate-server
+inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com
 ```
+For example:  
+```bash
+inspec compliance login --insecure --user=workstation-1 --token AAAA-AAAA-AAAA-AAAAB anthony-a2.chef-demo.com
+```
+  
+You output will be:  
+```bash
+Stored configuration for Chef Automate: https://anthony-a2.chef-demo.com/api/v0' with user: 'workstation-1'  
+```
+  
+  
+6. Run the CIS Kubernetes InSpec Profile
+  
+Next lets execute that profile against Kubernetes (replace <x> with your workstation number) :
+```bash
+inspec exec compliance://workstation-<x>/cis-kubernetes-v1.5.0 --config=reporter.json --input-file=inputs.yml
+```
+
+Your output will be as follows:
+```bash
+[ec2-user@ip-172-31-54-198 kube]$ inspec exec compliance://workstation-1/cis-kubernetes-v1.5.0 --config=reporter.json --input-file=inputs.yml
+
+Profile: CIS Kubernetes Benchmark - v1.5.0 (cis-kubernetes-v1.5.0)
+Version: 1.5.0
+Target:  local://
+
+  ✔  1.1.1 - Ensure that the API server pod specification file permissions are set to 644 or more restrictive: Ensure that the API server pod specification file permissions are set to 644 or more restrictive
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected to exist
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected not to be executable by group
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected not to be writable by group
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected not to be executable by other
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected not to be writable by other
+     ✔  File /etc/kubernetes/manifests/kube-apiserver.yaml is expected not to be executable by owner
+  ↺  1.1.10 - Ensure that the Container Network Interface file ownership is set to root:root: Ensure that the Container Network Interface file ownership is set to root:root
+     ↺  This recommendation is not automated because a variety of implementations for CNI are possible - see https://kubernetes.io/docs/concepts/cluster-administration/networking/
+  ✔  1.1.11 - Ensure that the etcd data directory permissions are set to 700 or more restrictive: Ensure that the etcd data directory permissions are set to 700 or more restrictive
+     ✔  etcd CLI options is expected to have option "data-dir"
+     ✔  File /var/lib/etcd is expected to be directory
+     ✔  File /var/lib/etcd is expected not to be readable by group
+     ✔  File /var/lib/etcd is expected not to be executable by group
+     ✔  File /var/lib/etcd is expected not to be writable by group
+     ✔  File /var/lib/etcd is expected not to be readable by other
+     ✔  File /var/lib/etcd is expected not to be executable by other
+     ✔  File /var/lib/etcd is expected not to be writable by other
+....
+....
+  ↺  5.4.2 - Consider external secret storage: Consider external secret storage
+     ↺  This recommendation requires manual review - Review your secrets management implementation.
+  ↺  5.5.1 - Configure Image Provenance using ImagePolicyWebhook admission controller: Configure Image Provenance using ImagePolicyWebhook admission controller
+     ↺  This recommendation requires manual review - Review the pod definitions in your cluster and verify that image provenance is configured as appropriate.
+
+
+Profile Summary: 63 successful controls, 36 control failures, 23 controls skipped
+Test Summary: 224 successful, 64 failures, 27 skipped
+```
+  
+  
+![k8s](/labs/images/k8s2.png)
+  
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
