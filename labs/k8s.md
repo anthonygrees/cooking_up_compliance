@@ -292,7 +292,15 @@ Test Summary: 224 successful, 64 failures, 27 skipped
 ```
   
   
+The scan will look like this:
+  
 ![k8s](/labs/images/k8s2.png)
   
+  
+  
+  
+The report will look like this:
+  
+![k8s](/labs/images/k8s3.png)
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
