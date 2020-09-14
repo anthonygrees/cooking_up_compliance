@@ -303,4 +303,13 @@ Test Summary: 224 successful, 64 failures, 27 skipped
   
 ![k8s](/labs/images/k8s3.png)
   
+  
+  
+9. Should you wish to run the InSpec scan remotely, then you can run this command:
+```bash
+inspec exec compliance://delivery/cis-kubernetes-v1.5.0 -t ssh://34.999.999.999 --user=ec2-user --sudo --input-file=inputs.yml --config=a2.json
+```
+  
+  
+  
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
