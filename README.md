@@ -33,7 +33,7 @@ The following is the lab material:
 | 8.  | [Scan GCP with InSpec](labs/gcp_cloud.md)|
 |     | |
 |     | **InSpec Hands On Labs - Containers and Kubernetes** |
-| 9.  | [Scan a Docker Container with InSpec](labs/containers.md) |
+| 9.  | [Scan a Docker Container with InSpec](labs/docker_containers.md) |
 | 10. | [Scan the Docker Host with InSpec](labs/docker_host.md) |
 | 11. | [Scan Kubernetes with InSpec](labs/k8s.md) |
 |     | |
