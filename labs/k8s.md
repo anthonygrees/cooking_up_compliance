@@ -121,7 +121,9 @@ Change directory into the InSpec profile.
 ```bash
 cd kube
 ```
-  
+   
+   
+   
 2. Update the `example.rb` in the `controls` directory
   
 Delete the sample contents of `example.rb` and add the following Kubernetes control:
@@ -148,7 +150,9 @@ control '5.6.4 - The default namespace should not be used' do
   end
 end
 ```
-  
+   
+   
+   
 3. Report in Chef Automate
 You will need to create a UUID for your Linux scan, run `uuidgen` in your terminal.    
      
@@ -210,5 +214,25 @@ Test Summary: 3 successful, 0 failures, 0 skipped
   
 ![k8s](/labs/images/k8s1.png)
   
+  
+  
+4. Create an attributes `inputs.yml` file
+  
+Run the command `touch inputs.yml` and add the following to the new file:
+  
+```yaml
+is_cluster_master: true
+is_etcd_master: true
+is_worker: true
+is_kubectl_host: true
+```
+  
+  
+5. Login to the Chef Automate server
+  
+Login to the A2 server to allow compliance profiles to be downloaded.  
+```bash
+inspec compliance login --insecure --user=delivery --token m6E8BQ5iCWLMBFUpIPRlRhrqR6k= aut-automate-server
+```
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
