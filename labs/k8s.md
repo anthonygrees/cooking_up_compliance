@@ -79,6 +79,77 @@ kube-system   kube-scheduler-ip-172-31-54-198.us-west-2.compute.internal        
   
 ### 3. Scan Kubernetes
   
+1. Create a K8s InSpec profile. 
+  
+Run the following command.  
+```bash
+inspec init profile kube
+```
+  
+Your output will look like this. (You may need to accept the license.):
+```bash
+[ec2-user@ip-172-31-54-198 inspec-labs]$ inspec init profile kube
++---------------------------------------------+
+            Chef License Acceptance
+
+Before you can continue, 1 product license
+must be accepted. View the license at
+https://www.chef.io/end-user-license-agreement/
+
+License that need accepting:
+  * Chef InSpec
+
+Do you accept the 1 product license (yes/no)?
+
+> yes
+
+Persisting 1 product license...
+✔ 1 product license persisted.
+
++---------------------------------------------+
+
+ ─────────────────────────── InSpec Code Generator ─────────────────────────── 
+
+Creating new profile at /home/ec2-user/inspec-labs/kube
+ • Creating file README.md
+ • Creating directory controls
+ • Creating file controls/example.rb
+ • Creating file inspec.yml
+```
+  
+Change directory into the InSpec profile.  
+```bash
+cd kube
+```
+  
+2. Update the `example.rb` in the `controls` directory
+  
+Delete the sample contents of `example.rb` and add the following Kubernetes control:
+```ruby
+control '5.6.4 - The default namespace should not be used' do
+  impact 1.0
+  title 'The default namespace should not be used'
+  desc 'Kubernetes provides a default namespace, where objects are placed if no namespace is specified for them. Placing objects in this namespace makes application of RBAC and other controls more difficult.'
+  tag level: 2
+
+  only_if('Control only applies to the host for kubectl') { input('is_kubectl_host') }
+
+  # CIS are imprecise on what resources are acceptable. This controls defaults to only allowing the kubernetes service
+  describe json({command: 'kubectl get all -o json --namespace=default'}).items do
+    its('length') { should cmp 1 }
+  end
+
+  describe json({command: 'kubectl get all -o json --namespace=default'}).items.first['kind'] do
+    it { should eq 'Service' }
+  end
+
+  describe json({command: 'kubectl get all -o json --namespace=default'}).items.first['metadata']['name'] do
+    it { should eq 'kubernetes' }
+  end
+end
+```
+  
+3. 
   
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
