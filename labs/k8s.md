@@ -149,7 +149,66 @@ control '5.6.4 - The default namespace should not be used' do
 end
 ```
   
-3. 
+3. Report in Chef Automate
+You will need to create a UUID for your Linux scan, run `uuidgen` in your terminal.    
+     
+  You will see output as follows:
+  ```bash
+    [ec2-user@ip-172-31-54-168 aws]$ uuidgen
+    c6754ceb-b9a8-4917-a797-c0d0589246d6
+      
+```
+  
+Next you need to create a `reporter.json` file like this in the `linux-example` directory, your instructor should have given you the Chef Automate Hostname and Token. Replace `<x>` with you workstation number. You can create the file by either:  
+   - right clicking on the `aws` directory or   
+   - in the terminal type `touch reporter.json`  
+  
+``` json
+{
+  "reporter": {
+    "automate" : {
+      "stdout" : false,
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
+      "token" : "<Chef Automate Token>",
+      "insecure" : true,
+      "node_name" : "YourName-k8s-Demo",
+      "environment" : "k8s",
+      "node_uuid" : "<uuidgen>"
+    },
+    "cli" : {
+      "stdout" : true
+    }
+  }
+}
+```
+
+To execute this using InSpec and report to A2 run the following command
+
+```bash
+inspec exec . --json-config reporter.json
+```
+  
+You will see an output in Chef Automate and on the STDOUT as follows:  
+```bash
+[ec2-user@ip-172-31-54-198 kube]$ inspec exec . --json-config reporter.json
+[2020-09-14T04:42:06+00:00] WARN: Input 'is_kubectl_host' does not have a value. Use --input-file or --input to provide a value for 'is_kubectl_host' or specify a  value with `input('is_kubectl_host', value: 'somevalue', ...)`.
+[2020-09-14T04:42:06+00:00] WARN: Input 'is_kubectl_host' does not have a value. Use --input-file or --input to provide a value for 'is_kubectl_host' or specify a  value with `input('is_kubectl_host', value: 'somevalue', ...)`.
+
+Profile: InSpec Profile (kube)
+Version: 0.1.0
+Target:  local://
+
+  ✔  5.6.4 - The default namespace should not be used: The default namespace should not be used
+     ✔  [{"apiVersion"=>"v1", "kind"=>"Service", "metadata"=>{"creationTimestamp"=>"2020-09-14T00:12:18Z", "labels"=>{"component"=>"apiserver", "provider"=>"kubernetes"}, "managedFields"=>[{"apiVersion"=>"v1", "fieldsType"=>"FieldsV1", "fieldsV1"=>{"f:metadata"=>{"f:labels"=>{"."=>{}, "f:component"=>{}, "f:provider"=>{}}}, "f:spec"=>{"f:clusterIP"=>{}, "f:ports"=>{"."=>{}, "k:{\"port\":443,\"protocol\":\"TCP\"}"=>{"."=>{}, "f:name"=>{}, "f:port"=>{}, "f:protocol"=>{}, "f:targetPort"=>{}}}, "f:sessionAffinity"=>{}, "f:type"=>{}}}, "manager"=>"kube-apiserver", "operation"=>"Update", "time"=>"2020-09-14T00:12:18Z"}], "name"=>"kubernetes", "namespace"=>"default", "resourceVersion"=>"158", "selfLink"=>"/api/v1/namespaces/default/services/kubernetes", "uid"=>"b42c6d97-7b9d-4fe7-8516-71d4c78a143e"}, "spec"=>{"clusterIP"=>"10.96.0.1", "ports"=>[{"name"=>"https", "port"=>443, "protocol"=>"TCP", "targetPort"=>6443}], "sessionAffinity"=>"None", "type"=>"ClusterIP"}, "status"=>{"loadBalancer"=>{}}}] length is expected to cmp == 1
+     ✔  Service is expected to eq "Service"
+     ✔  kubernetes is expected to eq "kubernetes"
+
+
+Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
+  
+![k8s](/labs/images/k8s1.png)
   
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
