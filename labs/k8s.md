@@ -41,7 +41,7 @@ Replace x with your workstation number given to you by the instructor.
 ![Lab Setup Image](/labs/images/automate.png "Automate")
 
 
-### 3. Scan Kubernetes
+### 2. Quick look at Kubernetes
 
 1. Some basic K8s commands
 ```bash
@@ -57,5 +57,28 @@ kubectl get pod my-pod -o yaml                # Get a pod's YAML
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 ```
+  
+The output will look something like this:
+```bash
+[ec2-user@ip-172-31-54-198 inspec-labs]$ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3h24m
+
+[ec2-user@ip-172-31-54-198 inspec-labs]$ kubectl get pods --all-namespaces 
+NAMESPACE     NAME                                                                  READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-6dfcd885bf-mmtsp                              1/1     Running   0          3h24m
+kube-system   calico-node-trdjd                                                     1/1     Running   0          3h24m
+kube-system   coredns-f9fd979d6-6zzjv                                               1/1     Running   0          3h24m
+kube-system   coredns-f9fd979d6-w98rn                                               1/1     Running   0          3h24m
+kube-system   etcd-ip-172-31-54-198.us-west-2.compute.internal                      1/1     Running   0          3h24m
+kube-system   kube-apiserver-ip-172-31-54-198.us-west-2.compute.internal            1/1     Running   0          3h24m
+kube-system   kube-controller-manager-ip-172-31-54-198.us-west-2.compute.internal   1/1     Running   0          3h24m
+kube-system   kube-proxy-5cqsl                                                      1/1     Running   0          3h24m
+kube-system   kube-scheduler-ip-172-31-54-198.us-west-2.compute.internal            1/1     Running   0          3h24m
+```
+  
+### 3. Scan Kubernetes
+  
+  
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
