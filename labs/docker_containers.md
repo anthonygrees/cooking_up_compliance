@@ -349,7 +349,40 @@ Status: Downloaded newer image for postgres:latest
 4295fd1a7ddde8a03d664988f2dc272aad2d6d962dc9526bcea870854b851174
 ```
   
-2. Get the Container ID
+2. Create a ```UUID```
+  
+Run the command ```uuidgen```
+```bash
+[ec2-user@ip-172-31-54-32 inspec-labs]$ uuidgen
+867fe288-e311-4844-887a-b47c9ab42da8
+```
+  
+3. Create a `reporter.json` for Chef Automate
+  
+Next you need to create a reporter.json file like this in the docker directory, your instructor should have given you the Chef Automate Hostname and Token. Replace <x> with you workstation number. You can create the file by either:  
+ - right clicking on the docker directory or.  
+ - in the terminal type touch reporter.json.  
+  
+```json
+{
+  "reporter": {
+    "automate" : {
+      "stdout" : false,
+      "url" : "https://anthony-a2.chef-demo.com/data-collector/v0/",
+      "token" : "AAAA-AAAA-AAAA-AAAAB",
+      "insecure" : true,
+      "node_name" : "YourName-postgres-container",
+      "environment" : "container",
+      "node_uuid" : "<uuidgen>"
+    },
+    "cli" : {
+      "stdout" : true
+    }
+  }
+}
+```
+  
+4. Get the Container ID
   
 ```bash
 docker ps -l
@@ -362,7 +395,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 4295fd1a7ddd        postgres            "docker-entrypoint.s…"   8 seconds ago       Up 6 seconds        5432/tcp            some-postgres
 ```
   
-3. Detect the Container platform
+5. Detect the Container platform
   
 ```bash
 inspec detect -t docker://
@@ -380,7 +413,7 @@ Release:   10.5
 Arch:      x86_64
 ```
   
-4. You can run profiles from Chef Automate
+6. You can run profiles from Chef Automate
   
 Login to Chef Automate via the terminal:  
 ```bash
@@ -411,7 +444,7 @@ Profile Summary: 15 successful controls, 1 control failure, 38 controls skipped
 Test Summary: 53 successful, 3 failures, 38 skipped
 ```
   
-5. Run the Postgres Baseline
+7. Run the Postgres Baseline
   
 Login to Chef Automate via the terminal:  
 ```bash
