@@ -42,6 +42,32 @@ Replace x with your workstation number given to you by the instructor.
 
 ### 2. Scan a Docker Container Directly
   
+#### Handy Docker Commands
+  
+Show runnning containers.   
+```bash
+docker ps //To show only running containers.
+docker ps -a //To show all containers.
+docker ps -l //To show the latest created container.
+docker ps -n=-1 //To show n last created containers.
+docker ps -s //To display total file sizes.
+```
+  
+Show Docker Images.  
+```bash
+docker image list
+```
+  
+Purging All Unused or Dangling Images, Containers, Volumes, and Networks
+Docker provides a single command that will clean up any resources — images, containers, volumes, and networks — that are dangling (not associated with a container):  
+  
+```docker system prune```
+  
+To additionally remove any stopped containers and all unused images (not just dangling images), add the -a flag to the command:
+```bash
+docker system prune -a
+```
+  
 #### Run a Container
 1. Docker is installed on the Linux node and is ready to go.  
   
