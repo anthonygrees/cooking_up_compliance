@@ -320,9 +320,138 @@ Test Summary: 2 successful, 0 failures, 0 skipped
   
 ### 5. Scan a Postgres Docker Container
   
+1. Run a Postgres Container
 ```bash
 docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 ```
+  
+You output will look like this:  
+```bash
+[ec2-user@ip-172-31-54-32 inspec-labs]$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+Unable to find image 'postgres:latest' locally
+latest: Pulling from library/postgres
+d121f8d1c412: Pull complete 
+9f045f1653de: Pull complete 
+fa0c0f0a5534: Pull complete 
+54e26c2eb3f1: Pull complete 
+cede939c738e: Pull complete 
+69f99b2ba105: Pull complete 
+218ae2bec541: Pull complete 
+70a48a74e7cf: Pull complete 
+a5a0d51f9154: Pull complete 
+73e23a8be3f2: Pull complete 
+770413f2d2da: Pull complete 
+8ff552bf08c6: Pull complete 
+a367abe73a12: Pull complete 
+007c3a47b37e: Pull complete 
+Digest: sha256:91462e8207eadf217fe72822163277d189215b1f3792719f29352de5beb0ad53
+Status: Downloaded newer image for postgres:latest
+4295fd1a7ddde8a03d664988f2dc272aad2d6d962dc9526bcea870854b851174
+```
+  
+2. Get the Container ID
+  
+```bash
+docker ps -l
+```
+  
+You output will look like this:  
+```bash
+[ec2-user@ip-172-31-54-32 inspec-labs]$ docker ps -l
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+4295fd1a7ddd        postgres            "docker-entrypoint.s…"   8 seconds ago       Up 6 seconds        5432/tcp            some-postgres
+```
+  
+3. Detect the Container platform
+  
+```bash
+inspec detect -t docker://
+```
+  
+You output will look like this:  
+```bash
+[ec2-user@ip-172-31-54-32 inspec-labs]$ inspec detect -t docker://4295fd1a7ddd
 
+ ────────────────────────────── Platform Details ────────────────────────────── 
+
+Name:      debian
+Families:  debian, linux, unix, os
+Release:   10.5
+Arch:      x86_64
+```
+  
+4. You can run profiles from Chef Automate
+  
+Login to Chef Automate via the terminal:  
+```bash
+inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com
+```
+  
+Now execute the profile from Chef Automate.  
+```bash
+inspec exec compliance://workstation-1/linux-baseline -t docker://<CONTAINER ID> --config=reporter.json
+```
+  
+Your putput will look like this:
+```bash
+Profile: DevSec Linux Security Baseline (linux-baseline)
+Version: 2.2.2
+Target:  docker://4295fd1a7ddde8a03d664988f2dc272aad2d6d962dc9526bcea870854b851174
+
+  ✔  os-01: Trusted hosts login
+     ✔  File /etc/hosts.equiv is expected not to exist
+  ✔  os-02: Check owner and permissions for /etc/shadow
+     ✔  File /etc/shadow is expected to exist
+     ✔  File /etc/shadow is expected to be file
+  ↺  sysctl-33: CPU No execution Flag or Kernel ExecShield
+     ↺  Skipped control due to only_if condition.
+
+
+Profile Summary: 15 successful controls, 1 control failure, 38 controls skipped
+Test Summary: 53 successful, 3 failures, 38 skipped
+```
+  
+5. Run the Postgres Baseline
+  
+Login to Chef Automate via the terminal:  
+```bash
+inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com
+```
+  
+Now execute the profile from Chef Automate.  
+```bash
+inspec exec compliance://workstation-1/postgres-baseline -t docker://<CONTAINER ID> --config=reporter.json
+```
+  
+Your putput will look like this:
+```bash
+Profile: Hardening Framework Postgres Hardening Test Suite (postgres-baseline)
+Version: 2.0.3
+Target:  docker://4295fd1a7ddde8a03d664988f2dc272aad2d6d962dc9526bcea870854b851174
+
+  ×  postgres-02: Use stable postgresql version (1 failed)
+     ×  Command: `psql -V` stdout is expected to match /9.[1-5]/
+     expected "psql (PostgreSQL) 12.4 (Debian 12.4-1.pgdg100+1)\n" to match /9.[1-5]/
+     Diff:
+     @@ -1 +1 @@
+     -/9.[1-5]/
+     +psql (PostgreSQL) 12.4 (Debian 12.4-1.pgdg100+1)
+
+     ✔  Command: `psql -V` stdout is expected not to match /RC/
+     ✔  Command: `psql -V` stdout is expected not to match /DEVEL/
+     ✔  Command: `psql -V` stdout is expected not to match /BETA/
+  ×  postgres-03: Run one postgresql instance per operating system
+     ×  Processes postgres list.length 
+     DEPRECATION: The processes `list` property is deprecated. Please use `entries` instead. This property was removed in InSpec 4.0. (used at postgres-baseline-2.0.3/controls/postgres_spec.rb:134)
+  ✔  postgres-04: Only "c" and "internal" should be used as non-trusted procedural languages
+     ✔  PostgreSQL query: SELECT count (*) FROM pg_language WHERE lanpltrusted = 'f' AND lanname!='internal' AND lanname!='c'; output is expected to eq "0"
+
+  ↺  postgres-15: Enable logging functions
+     ↺  Can't find file: /etc/postgresql/12.4-1/postgresql.conf
+
+
+Profile Summary: 4 successful controls, 6 control failures, 4 controls skipped
+Test Summary: 31 successful, 20 failures, 4 skipped
+```
 
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
