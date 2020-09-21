@@ -40,7 +40,7 @@ Password = workstation!
 Replace x with your workstation number given to you by the instructor.  
 ![Lab Setup Image](/labs/images/automate.png "Automate")
 
-### 2. Scan a Docker Container Directly
+### 2. Some Docker Commands
   
 #### Handy Docker Commands
   
@@ -67,6 +67,15 @@ To additionally remove any stopped containers and all unused images (not just da
 ```bash
 docker system prune -a
 ```
+  
+  
+Stop and remove all docker containers and images
+ - List all containers (only IDs) `docker ps -aq.`
+ - Stop all running containers. `docker stop $(docker ps -aq)`
+ - Remove all containers. `docker rm $(docker ps -aq)`
+ - Remove all images. `docker rmi $(docker images -q)`
+  
+### 3. Scan a Docker Container Directly
   
 #### Run a Container
 1. Docker is installed on the Linux node and is ready to go.  
