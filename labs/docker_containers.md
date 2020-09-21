@@ -84,6 +84,28 @@ Stop and remove all docker containers and images
   
 ```docker run -dp 80:80 docker/getting-started```  
   
+  
+```bash
+[ec2-user@ip-172-31-54-32 inspec-labs]$ docker run -dp 80:80 docker/getting-started
+Unable to find image 'docker/getting-started:latest' locally
+latest: Pulling from docker/getting-started
+cbdbe7a5bc2a: Pull complete 
+85434292d1cb: Pull complete 
+75fcb1e58684: Pull complete 
+2a8fe5451faf: Pull complete 
+42ceeab04dd4: Pull complete 
+bdd639f50516: Pull complete 
+c446f16e1123: Pull complete 
+Digest: sha256:79d5eae6e7b1dec2e911923e463240984dad111a620d5628a5b95e036438b2df
+Status: Downloaded newer image for docker/getting-started:latest
+1184f3bfc817a19e8744d5b487adb526d6210c3e9a3ca0299335ec64a1561111
+
+
+[ec2-user@ip-172-31-54-32 inspec-labs]$ docker ps -l
+CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                NAMES
+1184f3bfc817        docker/getting-started   "/docker-entrypoint.…"   11 seconds ago      Up 11 seconds       0.0.0.0:80->80/tcp   affectionate_lovelace
+```
+  
 3. You can verifiy that it is running by going to your browser:  
 ```http://<public ip of your Linux Node>/``` 
   
@@ -95,6 +117,24 @@ Stop and remove all docker containers and images
 ```bash
 CONTAINER ID        IMAGE                    COMMAND                  CREATED              STATUS              PORTS                NAMES
 bc3e5e37cb12        docker/getting-started   "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   optimistic_mclean
+```
+  
+#### Detect the platform of the container with InSpec
+1. You can determine the platform with:
+  
+```bash
+inspec detect -t docker://<CONTAINER ID>
+```
+
+```
+[ec2-user@ip-172-31-54-32 inspec-labs]$ inspec detect -t docker://1184f3bfc817
+
+ ────────────────────────────── Platform Details ────────────────────────────── 
+
+Name:      alpine
+Families:  linux, unix, os
+Release:   3.11.6
+Arch:      x86_64
 ```
   
 #### Create a Docker InSpec Profile
