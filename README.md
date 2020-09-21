@@ -48,6 +48,7 @@ The following is the lab material:
 |     | |
 |     | **Helpful Resources** |
 | 17. | [Chef and InSpec Resources](labs/links.md) |
+| 18. | [Unpacking Chef Automate AIB and Chef Habitat .hart files](labs/aib_hart.md) |
   
   
   
