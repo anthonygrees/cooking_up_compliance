@@ -1,5 +1,6 @@
 # Unpacking Chef Automate AIB's and Habitat .hart files. 
   
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
 ### Step 1. Extract the Chef Automate AIB
   
@@ -58,4 +59,6 @@ tail -n +6 /tmp/foo-bar.hart | xzcat | tar xf - -C .
    
 You will need to loop through all the .hart files and they will be extracted into their respective folders.
   
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
