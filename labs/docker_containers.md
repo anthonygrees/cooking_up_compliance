@@ -137,6 +137,85 @@ Release:   3.11.6
 Arch:      x86_64
 ```
   
+#### Run the DevSec Linux Baseline againnst the container
+1. You can run profiles from Chef Automate
+  
+Login to Chef Automate via the terminal:  
+```bash
+inspec compliance login --insecure --user=workstation-<x> --token <Chef Automate Token> anthony-a2.chef-demo.com
+```
+  
+Now execute the profile from Chef Automate.  
+```bash
+inspec exec compliance://workstation-1/linux-baseline -t docker://<CONTAINER ID> --config=reporter.json
+```
+  
+Your putput will look like this:
+```bash
+Profile: DevSec Linux Security Baseline (linux-baseline)
+Version: 2.5.0
+Target:  docker://1184f3bfc817a19e8744d5b487adb526d6210c3e9a3ca0299335ec64a1561111
+
+  ✔  os-01: Trusted hosts login
+     ✔  File /etc/hosts.equiv is expected not to exist
+  ×  os-02: Check owner and permissions for /etc/shadow (1 failed)
+     ✔  File /etc/shadow is expected to exist
+     ✔  File /etc/shadow is expected to be file
+     ✔  File /etc/shadow is expected to be owned by "root"
+     ✔  File /etc/shadow is expected not to be executable
+     ✔  File /etc/shadow is expected not to be readable by other
+     ✔  File /etc/shadow group is expected to eq "shadow"
+     ✔  File /etc/shadow is expected to be writable by owner
+     ✔  File /etc/shadow is expected to be readable by owner
+     ×  File /etc/shadow is expected not to be readable by group
+     expected File /etc/shadow not to be readable by group
+  ✔  os-03: Check owner and permissions for /etc/passwd
+     ✔  File /etc/passwd is expected to exist
+     ✔  File /etc/passwd is expected to be file
+     ✔  File /etc/passwd is expected to be owned by "root"
+     ✔  File /etc/passwd is expected not to be executable
+     ✔  File /etc/passwd is expected to be writable by owner
+     ✔  File /etc/passwd is expected not to be writable by group
+     ✔  File /etc/passwd is expected not to be writable by other
+     ✔  File /etc/passwd is expected to be readable by owner
+     ✔  File /etc/passwd is expected to be readable by group
+     ✔  File /etc/passwd is expected to be readable by other
+     ✔  File /etc/passwd group is expected to eq "root"
+  ✔  os-03b: Check passwords hashes in /etc/passwd
+     ✔  /etc/passwd passwords is expected to be in "x" and "*"
+  ✔  os-04: Dot in PATH variable
+     ✔  Environment variable PATH split is expected not to include ""
+     ✔  Environment variable PATH split is expected not to include "."
+  ↺  os-05: Check login.defs (7 failed) (1 skipped)
+     ×  File /etc/login.defs is expected to exist
+     expected File /etc/login.defs to exist
+     ×  File /etc/login.defs is expected to be file
+     expected `File /etc/login.defs.file?` to return true, got false
+     ×  File /etc/login.defs is expected to be owned by "root"
+     expected `File /etc/login.defs.owned_by?("root")` to return true, got false
+     ✔  File /etc/login.defs is expected not to be executable
+     ×  File /etc/login.defs is expected to be readable by owner
+     expected File /etc/login.defs to be readable by owner
+     ×  File /etc/login.defs is expected to be readable by group
+     expected File /etc/login.defs to be readable by group
+     ×  File /etc/login.defs is expected to be readable by other
+     expected File /etc/login.defs to be readable by other
+     ×  File /etc/login.defs group is expected to eq "root"
+     
+     expected: "root"
+          got: nil
+     
+     (compared using ==)
+
+     ↺  Can't find file: /etc/login.defs
+  ↺  os-05b: Check login.defs - RedHat specific
+     ↺  Skipped control due to only_if condition.
+
+Profile Summary: 15 successful controls, 2 control failures, 38 controls skipped
+Test Summary: 39 successful, 8 failures, 39 skippe
+```
+
+  
 #### Create a Docker InSpec Profile
 1. InSpec allows you to scan directly against against a Docker container. Lets first create a profile to use for our scan tests:  
   
