@@ -42,7 +42,7 @@ Replace x with your workstation number given to you by the instructor.
 
 ### 2. Some Docker Commands
   
-#### Handy Docker Commands
+#### 2a. Running Containers
   
 Show runnning containers.   
 ```bash
@@ -53,11 +53,13 @@ docker ps -n=-1 //To show n last created containers.
 docker ps -s //To display total file sizes.
 ```
   
+#### 2b. Docker Images
 Show Docker Images.  
 ```bash
 docker image list
 ```
   
+#### 2c. Purge Containers
 Purging All Unused or Dangling Images, Containers, Volumes, and Networks
 Docker provides a single command that will clean up any resources — images, containers, volumes, and networks — that are dangling (not associated with a container):  
   
@@ -68,16 +70,18 @@ To additionally remove any stopped containers and all unused images (not just da
 docker system prune -a
 ```
   
-  
+#### 2d. Remove Containers
 Stop and remove all docker containers and images
  - List all containers (only IDs) `docker ps -aq.`
  - Stop all running containers. `docker stop $(docker ps -aq)`
  - Remove all containers. `docker rm $(docker ps -aq)`
  - Remove all images. `docker rmi $(docker images -q)`
   
+  
 ### 3. Scan a Docker Container Directly
   
-#### Run a Container
+#### 3a. Run a Container
+  
 1. Docker is installed on the Linux node and is ready to go.  
   
 2. Lets create a container that we can scan. I have chosen the Docker delivered "docker/getting-started" container for this exercise:  
@@ -119,8 +123,9 @@ CONTAINER ID        IMAGE                    COMMAND                  CREATED   
 bc3e5e37cb12        docker/getting-started   "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   optimistic_mclean
 ```
   
-#### Detect the platform of the container with InSpec
-1. You can determine the platform with:
+#### 3b. Detect the platform of the container with InSpec
+  
+1. You can determine the platform with the `inspec detect` command:
   
 ```bash
 inspec detect -t docker://<CONTAINER ID>
@@ -137,7 +142,8 @@ Release:   3.11.6
 Arch:      x86_64
 ```
   
-#### Run the DevSec Linux Baseline againnst the container
+#### 3c. Run the DevSec Linux Baseline againnst the container
+  
 1. You can run profiles from Chef Automate
   
 Login to Chef Automate via the terminal:  
@@ -216,7 +222,8 @@ Test Summary: 39 successful, 8 failures, 39 skippe
 ```
 
   
-#### Create a Docker InSpec Profile
+### 4. Create a Docker InSpec Profile
+  
 1. InSpec allows you to scan directly against against a Docker container. Lets first create a profile to use for our scan tests:  
   
 ```bash
@@ -251,7 +258,7 @@ Test Summary: 2 successful, 0 failures, 0 skipped
 ```
 You can create your own tests using the out of the box InSpec Resources detailed here or make use of one of the CIS InSpec profiles suitable for the operating system that your containers are sharing.  
   
-#### Send Your InSpec Results To Chef Automate
+#### 4a. Send Your InSpec Results To Chef Automate
 
 1. You will need to create a UUID for your Docker scan, run `uuidgen` in your terminal.    
      
@@ -311,7 +318,7 @@ Test Summary: 2 successful, 0 failures, 0 skipped
   
   
   
-#### Scan a Postgres Docker Container
+### 5. Scan a Postgres Docker Container
   
 ```bash
 docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
