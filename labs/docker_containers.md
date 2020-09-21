@@ -40,7 +40,7 @@ Password = workstation!
 Replace x with your workstation number given to you by the instructor.  
 ![Lab Setup Image](/labs/images/automate.png "Automate")
 
-### 2. Some Docker Commands
+### 2. Some Handy Docker Commands
   
 #### 2a. Running Containers
   
