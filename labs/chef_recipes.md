@@ -32,7 +32,7 @@ end
 
 ```
   
-### Create your first Recipe
+### Step 1. Create your first Recipe
   
 Work within the home directory.  
 ```bash
@@ -53,7 +53,7 @@ end
 ```
   
   
-### How do we run our Recipe ?
+### Step 2. How do we run our Recipe ?
 The chef-client is an agent that runs locally on every node that is under management by Chef.  
   
 When a chef-client is run, it will perform all of the steps that are required to bring the node into the expected state.  
@@ -99,7 +99,7 @@ Hello, world!
 ```
   
   
-### Is it safe to run Chef multiple times ?
+### Step 3. Is it safe to run Chef multiple times ?
   
   
 Let's find out. Apply the recipe AGAIN with the following command.  
@@ -120,7 +120,7 @@ Recipe: (chef-apply cookbook)::(chef-apply recipe)
 Yes, Chef recognises there are NO changes to be made.  
   
   
-### Change the contents of the Text file
+### Step 4. Change the contents of the Text file
   
 Open the text file and change the contents.
 ```bash
