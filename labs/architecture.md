@@ -29,7 +29,11 @@ The Chef Products are:
 6. Document procedures for Disaster Recovery and monitoring.   
 7. Verify you have both human and hardware resources allocated to execute the plans.    
 8. Calculate your CCR/min (chef-client runs per minute). For example, 500 nodes set to check in every 30 minutes is equivalent to 16.66 CCRs/min.  
-
+  
+  
+### Chef InSpec Container Pipeline Architecture
+  
+![Architecture Diagram](/labs/images/architecture_diagram_containers.png "Architecture Diagram")
 
   
   
