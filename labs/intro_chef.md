@@ -1,4 +1,5 @@
 # Chef - Infrastructure as Code
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
 ### About Chef ?
 Chef can automate how you build, deploy, and manage your infrastructure.
@@ -37,3 +38,6 @@ therefore you treat it like any programing language and ensure Chef is:
 - Stored in source control like `git`
 - Testing Coverage
 - Part of your CI or CD pipelines
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
