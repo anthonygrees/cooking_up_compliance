@@ -19,16 +19,16 @@ The Chef Products are:
   
 ![Architecture Diagram](/labs/images/architecture_diagram.png "Architecture Diagram")
   
-- Estimate how many times a day your nodes will check in and whether you will use the ‘Audit’ cookbook
-- Determine if multiple data centers are required
-- Determine if High Availability will be needed
-- Create an architecture diagram with the following documented:
--- All relevant VLANs/Firewall rules
--- All required servers and their hardware specifications 
-- Document a plan for provisioning servers and verifying network/hardware requirements 
-- Document procedures for Disaster Recovery and monitoring
-- Verify you have both human and hardware resources allocated to execute the plans
-- Calculate your CCR/min (chef-client runs per minute). For example, 500 nodes set to check in every 30 minutes is equivalent to 16.66 CCRs/min.
+1. Estimate how many times a day your nodes will check in and whether you will use the ‘Audit’ cookbook
+2. Determine if multiple data centers are required
+3. Determine if High Availability will be needed
+4. Create an architecture diagram with the following documented:
+  * All relevant VLANs/Firewall rules
+  * All required servers and their hardware specifications 
+5. Document a plan for provisioning servers and verifying network/hardware requirements 
+6. Document procedures for Disaster Recovery and monitoring
+7 Verify you have both human and hardware resources allocated to execute the plans
+8 Calculate your CCR/min (chef-client runs per minute). For example, 500 nodes set to check in every 30 minutes is equivalent to 16.66 CCRs/min.
 
 
   
