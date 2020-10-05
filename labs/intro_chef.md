@@ -39,5 +39,41 @@ therefore you treat it like any programing language and ensure Chef is:
 - Testing Coverage
 - Part of your CI or CD pipelines
   
+### Chef Core Concepts
+![Chef](/labs/images/chef_core_concepts.png)
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
+  
+  
+#### What is a Resource ?
+- A Resource is a system state you define, for example: Package installed, state of a service, configuration file existing.
+- You declare what the state of the resource is. Chef will automatically determine HOW that state is achieved.
+  
+A Linux example
+```package 'httpd'```
+  
+or
+  
+```ruby
+package 'Install Apache' do
+  case node[:platform]
+  when 'redhat', 'centos'
+    package_name 'httpd'
+  when 'ubuntu', 'debian'
+    package_name 'apache2'
+  end
+end
+```
+  
+A Windows example
+```ruby
+windows_package '7zip' do
+  action :install
+  source 'C:\7z920.msi'
+end
+```
+  
+#### What is a Recipe ?
+
+
+#### What is a Cookbook ?
