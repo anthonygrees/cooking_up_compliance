@@ -38,17 +38,18 @@ The following is the lab material:
 | 11. | [Scan Kubernetes with InSpec](labs/k8s.md) |
 |     | |
 |     | **Chef Essentials Training** |
-| 12. | [Chef Essentials: Windows - Helpful Links](labs/essentials_windows.md) |
-| 13. | [Chef Essentials: Linux - Helpful Links](labs/essentials_linux.md) |
-| 14. | [Chef Policyfiles Workshop](https://github.com/anthonygrees/policyfiles_training) |
+| 12. | [Introduction to Chef - Infra as Code](labs/intro_chef.md) |
+| 13. | [Chef Essentials: Windows - Helpful Links](labs/essentials_windows.md) |
+| 14. | [Chef Essentials: Linux - Helpful Links](labs/essentials_linux.md) |
+| 15. | [Chef Policyfiles Workshop](https://github.com/anthonygrees/policyfiles_training) |
 |     | |
 |     | **Other Chef Automate Training** |
-| 15. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
-| 16. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
+| 16. | [Chef Automate - RBAC Multi Tenancy](labs/rbac.md) |
+| 17. | [Chef Pipeline Examples](https://github.com/anthonygrees/chef_pipelines) |
 |     | |
 |     | **Helpful Resources** |
-| 17. | [Chef and InSpec Resources](labs/links.md) |
-| 18. | [Unpacking Chef Automate AIB and Chef Habitat .hart files](labs/aib_hart.md) |
+| 18. | [Chef and InSpec Resources](labs/links.md) |
+| 19. | [Unpacking Chef Automate AIB and Chef Habitat .hart files](labs/aib_hart.md) |
   
   
   
