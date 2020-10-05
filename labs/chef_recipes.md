@@ -154,18 +154,19 @@ Recipe: (chef-apply cookbook)::(chef-apply recipe)
 ### Concept - Resource Definition
 Let's take a moment and talk about the structure of a resource definition. We'll break down the resource that we defined in our recipe file.  
   
-The first element of the resource definition is the resource type. In this instance the type is 'file'. Earlier we used 'package'. We showed you an example of 'service'.  
+![Chef Resource Definition](/labs/images/chef_resource_definition.png)
   
-The second element is the name of the resource. This is also the first parameter being passed to the resource.  
+`TYPE`: The first element of the resource definition is the resource type. In this instance the type is 'file'. Earlier we used 'package'. We showed you an example of 'service'.  
+  
+`NAME`: The second element is the name of the resource. This is also the first parameter being passed to the resource.  
 In this instance the resource name is also the relative file path to the file we want created. We could have specified a fully-qualified file path to ensure the file was written to the exact same location and not dependent on our current working directory.  
   
-The `do` and `end` keywords here define the beginning of a ruby block. The ruby block and all the contents of it are the second parameters to our resource.  
+`PROPERTIES`: The `do` and `end` keywords here define the beginning of a ruby block. The ruby block and all the contents of it are the second parameters to our resource.  
 The contents of this block contains properties (and other things) that help describe the state of the resource. In this instance, the content attribute here specifies the contents of the file.  
 Properties are laid out with the name of the property followed by a space and then the value for the attribute.  
   
 The interesting part is that there is no action defined. And if you think back to the previous examples that we showed you, not all of the resources have defined actions.  
   
-![Chef Resource Definition](/labs/images/chef_resource_definition.png)
   
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
