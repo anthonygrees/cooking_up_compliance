@@ -99,7 +99,7 @@ Hello, world!
 ```
   
   
-### Is it safe to run multiple times ?
+### Is it safe to run Chef multiple times ?
   
   
 Let's find out. Apply the recipe AGAIN with the following command.  
@@ -118,3 +118,35 @@ Recipe: (chef-apply cookbook)::(chef-apply recipe)
 ```
   
 Yes, Chef recognises there are NO changes to be made.  
+  
+  
+### Change the contents of the Text file
+  
+Open the text file and change the contents.
+```bash
+code c:\hello.txt
+```
+  
+Run Chef again.   
+```bash
+chef-apply hello.rb -l info
+```
+  
+Your output will look like this:  
+```bash
+PS C:\chef-repo\cookbooks> chef-apply hello.rb -l info
+[2020-10-05T06:36:10+00:00] INFO: Run List is []
+[2020-10-05T06:36:10+00:00] INFO: Run List expands to []
+Recipe: (chef-apply cookbook)::(chef-apply recipe)
+  * file[C:\hello.txt] action create[2020-10-05T06:36:10+00:00] INFO: Processing file[C:\hello.txt] action create ((chef-apply cookbook)::(chef-apply recipe) line 1)
+[2020-10-05T06:36:10+00:00] INFO: file[C:\hello.txt] backed up to C:\chef\backup\hello.txt.chef-20201005063610.886569
+[2020-10-05T06:36:10+00:00] INFO: file[C:\hello.txt] updated file contents C:\hello.txt
+
+    - update content in file C:\hello.txt from a6ab91 to 315f5b
+    --- C:\hello.txt    2020-10-05 06:35:54.304317100 +0000
+    +++ C:\chef-hello20201005-3480-t57mtx.txt   2020-10-05 06:36:10.856322000 +0000
+    @@ -1,2 +1,2 @@
+    -Goodbye, world!
+    +Hello, world!
+```
+  
