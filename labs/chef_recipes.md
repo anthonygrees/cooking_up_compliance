@@ -99,3 +99,22 @@ Hello, world!
 ```
   
   
+### Is it safe to run multiple times ?
+  
+  
+Let's find out. Apply the recipe AGAIN with the following command.  
+```bash
+chef-apply hello.rb -l info
+```
+  
+Your output will look like this:  
+```bash
+PS C:\chef-repo\cookbooks> chef-apply hello.rb -l info
+[2020-10-05T06:32:10+00:00] INFO: Run List is []
+[2020-10-05T06:32:10+00:00] INFO: Run List expands to []
+Recipe: (chef-apply cookbook)::(chef-apply recipe)
+  * file[C:\hello.txt] action create[2020-10-05T06:32:10+00:00] INFO: Processing file[C:\hello.txt] action create ((chef-apply cookbook)::(chef-apply recipe) line 1)
+ (up to date)
+```
+  
+Yes, Chef recognises there are NO changes to be made.  
