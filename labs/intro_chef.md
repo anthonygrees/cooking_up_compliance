@@ -42,15 +42,15 @@ therefore you treat it like any programing language and ensure Chef is:
 ### Chef Core Concepts
 ![Chef](/labs/images/chef_core_concepts.png)
   
-[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
-  
   
 #### What is a Resource ?
 - A Resource is a system state you define, for example: Package installed, state of a service, configuration file existing.
 - You declare what the state of the resource is. Chef will automatically determine HOW that state is achieved.
   
 A Linux example
-```package 'httpd'```
+```ruby
+package 'httpd'
+```
   
 or
   
@@ -74,6 +74,49 @@ end
 ```
   
 #### What is a Recipe ?
+- A recipe is a collection of Resources
+- Resources are executed in the order they are listed 
+  
+  
+```ruby
+execute "apt-get update" do
+ command "apt-get update"
+end
 
-
+apt_package "vim" do
+ action :install
+end
+```
+  
 #### What is a Cookbook ?
+- A cookbook is a set of recipes
+- A cookbook is a defined set of items and different outcomes that you expect to address
+- Example: A cookbook could have a recipe to install apache2/httpd but also another set of recipes to activate modules required.
+
+```bash
+myiis/
+├── Berksfile
+├── LICENSE
+├── README.md
+├── chefignore
+├── metadata.rb
+├── recipes
+│   ├── default.rb
+│   └── server.rb
+├── spec
+│   ├── spec_helper.rb
+│   └── unit
+│       └── recipes
+│           └── default_spec.rb
+└── test
+    └── integration
+        └── default
+            └── default_test.rb
+
+7 directories, 10 files
+```
+
+  
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
