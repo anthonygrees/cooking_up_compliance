@@ -26,8 +26,8 @@ The Chef Products are:
   * All relevant VLANs/Firewall rules. 
   * All required servers and their hardware specifications.  
 5. Document a plan for provisioning servers and verifying network/hardware requirements.  
-6. Document procedures for Disaster Recovery and monitoring. 
-7 Verify you have both human and hardware resources allocated to execute the plans.  
+6. Document procedures for Disaster Recovery and monitoring.   
+7 Verify you have both human and hardware resources allocated to execute the plans.    
 8 Calculate your CCR/min (chef-client runs per minute). For example, 500 nodes set to check in every 30 minutes is equivalent to 16.66 CCRs/min.  
 
 
