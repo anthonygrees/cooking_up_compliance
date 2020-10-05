@@ -165,5 +165,7 @@ Properties are laid out with the name of the property followed by a space and th
   
 The interesting part is that there is no action defined. And if you think back to the previous examples that we showed you, not all of the resources have defined actions.  
   
+![Chef Resource Definition](/labs/images/chef_resource_definition.png)
+  
   
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
