@@ -1,7 +1,7 @@
 # About Chef Resources and Recipes
 [Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
   
-### Chef Resources
+### Concept - Chef Resources
 A resource is a statement of configuration policy.  
   
 It describes the desired state of an element of your infrastructure and the steps needed to bring that item to the desired state.  
@@ -150,3 +150,20 @@ Recipe: (chef-apply cookbook)::(chef-apply recipe)
     +Hello, world!
 ```
   
+  
+### Concept - Resource Definition
+Let's take a moment and talk about the structure of a resource definition. We'll break down the resource that we defined in our recipe file.  
+  
+The first element of the resource definition is the resource type. In this instance the type is 'file'. Earlier we used 'package'. We showed you an example of 'service'.  
+  
+The second element is the name of the resource. This is also the first parameter being passed to the resource.  
+In this instance the resource name is also the relative file path to the file we want created. We could have specified a fully-qualified file path to ensure the file was written to the exact same location and not dependent on our current working directory.  
+  
+The `do` and `end` keywords here define the beginning of a ruby block. The ruby block and all the contents of it are the second parameters to our resource.  
+The contents of this block contains properties (and other things) that help describe the state of the resource. In this instance, the content attribute here specifies the contents of the file.  
+Properties are laid out with the name of the property followed by a space and then the value for the attribute.  
+  
+The interesting part is that there is no action defined. And if you think back to the previous examples that we showed you, not all of the resources have defined actions.  
+  
+  
+[Back to the Lab Index](../README.md#cooking-up-compliance---workshop)
