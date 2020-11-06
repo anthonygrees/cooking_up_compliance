@@ -1,7 +1,12 @@
 ![Chef Events](/labs/images/Header.png)
-# Cooking Up Compliance - Workshop
-  
-**Chef Events - Secure your Cloud with Chef Compliance for AWS, Azure and GCP**
+ _____             _    _               _   _         _____                       _ _                      
+/  __ \           | |  (_)             | | | |       /  __ \                     | (_)                     
+| /  \/ ___   ___ | | ___ _ __   __ _  | | | |_ __   | /  \/ ___  _ __ ___  _ __ | |_  __ _ _ __   ___ ___ 
+| |    / _ \ / _ \| |/ / | '_ \ / _` | | | | | '_ \  | |    / _ \| '_ ` _ \| '_ \| | |/ _` | '_ \ / __/ _ \
+| \__/\ (_) | (_) |   <| | | | | (_| | | |_| | |_) | | \__/\ (_) | | | | | | |_) | | | (_| | | | | (_|  __/
+ \____/\___/ \___/|_|\_\_|_| |_|\__, |  \___/| .__/   \____/\___/|_| |_| |_| .__/|_|_|\__,_|_| |_|\___\___|
+                                 __/ |       | |                           | |                             
+                                |___/        |_|                           |_|                             
   
 This course is designed to accelerate you from zero to hero into the world of DevOps from the perspective of using Chef Configuration Management and Test Driven Development with InSpec. It is also the lead-in to learning Habitat.
   
